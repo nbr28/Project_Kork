@@ -7,21 +7,7 @@ using UnityEngine.Networking;
 using Assets.Scripts.DataBase;
 using System;
 
-public static class JsonHelper
-{
-    public static T[] getJsonArray<T>(string json)
-    {
-        string newJson = "{ \"array\": " + json + "}";
-        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
-        return wrapper.array;
-    }
 
-    [System.Serializable]
-    private class Wrapper<T>
-    {
-        public T[] array;
-    }
-}
 
 public class SnippetManager : MonoBehaviour
 {

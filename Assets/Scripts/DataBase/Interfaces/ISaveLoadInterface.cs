@@ -8,7 +8,7 @@ namespace Assets.Scripts.DataBase
     /// <summary>
     /// Interface to allow instantiated objects to preform CRUD on the database
     /// </summary>
-    interface ISaveLoadInterface
+    public interface ISaveLoadInterface
     {
         /// <summary>
         /// Saves a given object to the database
