@@ -10,8 +10,8 @@ namespace Assets.Scripts.DataBase
     public static class URLConfig
     {
         public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
-       // public const string BASEURL = "http://localhost:3000/api/";
-
+        // public const string BASEURL = "http://localhost:3000/api/";
+        public static int TempBoardId = 1;
     }
     
     [System.Serializable]
@@ -26,6 +26,14 @@ namespace Assets.Scripts.DataBase
     {
         public int Snippet_Id;
         public string Path_To_Data;
+        public int Board_Id;
+
+        public Snippet(int snippet_Id, string path_To_Data)
+        {
+            Snippet_Id = snippet_Id;
+            Path_To_Data = path_To_Data;
+            Board_Id =URLConfig.TempBoardId;
+        }
     }
 
     [System.Serializable]
