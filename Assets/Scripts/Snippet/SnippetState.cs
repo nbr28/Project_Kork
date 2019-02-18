@@ -6,8 +6,9 @@ using AssociationsName;
 using Assets.Scripts.DataBase;
 using System;
 using Association = AssociationsName.Association;
+using Assets.Scripts.DataBase.Interfaces;
 
-public class SnippetState : MonoBehaviour, ISaveLoadInterface
+public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Snippet>
 {
 
     //These strings are used to load data from the associations table. If you are adding a default string to the db please add one here 
@@ -33,35 +34,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface
     public Dictionary<Association, string> assocations = new Dictionary<Association, string>();
 
 
-    public SnippetState()
-    {
 
-    }
-
-    [Obsolete("Use the load state from the database using void loadState(Tag[] tags, Assets.Scripts.DataBase.Snippet snippet, AssociationView[] associationViews) ")]
-    public void loadState(Snippet src)
-    {
-        id = src.id;
-        title = src.title;
-        contents = src.contents;
-        tags = new List<string>(src.tags);
-        x = src.x;
-        y = src.y;
-        z = src.z;
-        titleBarColor = src.titleBarColor;
-
-        transform.position = new Vector3(x, y, z);
-        titleBar.GetComponent<TextMeshPro>().SetText(title);
-        contentPane.GetComponent<TextMeshPro>().SetText(contents);
-
-        string allTags = "";
-        foreach (string tag in tags)
-        {
-            allTags += (" #" + tag);
-        }
-        allTags.Trim();
-        tagBar.GetComponent<TextMeshPro>().SetText(allTags);
-    }
 
     /// <summary>
     /// Used when loaded from db to trigger rendering snippet
@@ -173,5 +146,10 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface
     public void Delete()
     {
         throw new NotImplementedException();
+    }
+
+    public Snippet GetBaseInterFace()
+    {
+        return new Snippet(this.id,this.Path_To_Data);
     }
 }
