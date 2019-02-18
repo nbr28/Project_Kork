@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts.DataBase.Interfaces
 {
-    public interface IBaseConverter<T>
+    public interface ICreateFormData
     {
-        T GetBaseInterFace();
+        List<IMultipartFormSection> CreateForm();
     }
 }

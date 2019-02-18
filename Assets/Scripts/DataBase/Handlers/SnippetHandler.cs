@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Assets.Scripts.DataBase.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -45,6 +47,15 @@ namespace Assets.Scripts.DataBase
             return snippet;
         }
 
+        public Snippet PostSnippet(IBaseConverter<Snippet> baseConverter)
+        {
+
+            UnityWebRequest www = UnityWebRequest.Post(URLConfig.BASEURL + baseTable, snippet.CreateForm());
+            UnityWebRequestAsyncOperation a =www.SendWebRequest();
+            throw new NotImplementedException();
+            return snippet;
+        }
+
         /// <summary>
         /// GET request for all snippets.
         /// </summary>
@@ -70,6 +81,6 @@ namespace Assets.Scripts.DataBase
             yield return request;
         }
 
-       
+
     }
 }
