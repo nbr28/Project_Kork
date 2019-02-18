@@ -13,6 +13,13 @@ namespace Assets.Scripts.DataBase
         // public const string BASEURL = "http://localhost:3000/api/";
         public static int TempBoardId = 1;
     }
+
+    [System.Serializable]
+    public class Board
+    {
+        public int Board_Id;
+        public string Board_Name;
+    }
     
     [System.Serializable]
     public class Tag
