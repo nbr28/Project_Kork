@@ -101,7 +101,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     /// </summary>
     public void Save()
     {
-        ConnectionHandler connectionHandler = new ConnectionHandler(this);//create saver
+        ConnectionHandler connectionHandler = new ConnectionHandler();//create saver
         //foreach(KeyValuePair<Association,string> association in assocations)
         //{
         //    Connection tempConnection = new Connection
