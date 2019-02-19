@@ -10,7 +10,7 @@ using System;
 
 namespace Assets.Scripts.DataBase
 {
-    public class AssocationHandler : GenericCRUD<Snippet>
+    public class AssocationHandler : GenericCRUD<Association>
     {
         [Obsolete]
         private RequestHelper currentRequest;
