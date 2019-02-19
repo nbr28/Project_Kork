@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataBase.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,7 @@ namespace Assets.Scripts.DataBase
             Board_Id =URLConfig.TempBoardId;
         }
 
+        [Obsolete]
         public WWWForm CreateForm()
         {
             WWWForm form = new WWWForm();
