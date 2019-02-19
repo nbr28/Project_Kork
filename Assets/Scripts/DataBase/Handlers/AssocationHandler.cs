@@ -1,5 +1,4 @@
-﻿using Models;
-using Proyecto26;
+﻿
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
@@ -10,7 +9,6 @@ namespace Assets.Scripts.DataBase
     public class AssocationHandler
     {
 
-        private RequestHelper currentRequest;
         private MonoBehaviour mono;
         private Association[] associations;
         private Association association;
