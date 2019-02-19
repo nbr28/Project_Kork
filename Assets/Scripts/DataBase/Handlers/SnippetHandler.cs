@@ -52,7 +52,7 @@ namespace Assets.Scripts.DataBase
         /// <param name="formData">data to be uploaded</param>
         /// <returns></returns>
         public Snippet Put(IBaseConverter<Snippet> formData)
-        {
+        { 
             return this.Put(formData.GetBaseInterFace());
         }
 
