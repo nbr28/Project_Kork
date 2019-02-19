@@ -34,7 +34,7 @@ public class SnippetManager : MonoBehaviour
     {
         SnippetHandler snippetHandler = new SnippetHandler();
         TagHandler tagHandler = new TagHandler(this);
-        AssocationHandler assocationHandler = new AssocationHandler();
+        AssocationHandler assocationHandler = new AssocationHandler(this);
         Assets.Scripts.DataBase.Snippet[] snippetArr = snippetHandler.GetAllSnippets();
 
         snippetObjectDict = new Dictionary<int, GameObject>();
