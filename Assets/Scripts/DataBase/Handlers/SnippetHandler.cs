@@ -31,6 +31,16 @@ namespace Assets.Scripts.DataBase
         }
 
         /// <summary>
+        /// Gets all the snippets for a given board
+        /// </summary>
+        /// <param name="board">if board is set to -1 then it will grab the current board in TempBoard</param>
+        /// <returns>the array</returns>
+        public Snippet GetSnippets(int snippetId)
+        {
+            return JsonUtility.FromJson<Snippet>(base.Get(URLConfig.BASEURL + baseTable + "/" + snippetId));
+        }
+
+        /// <summary>
         /// Overridden post to allow for base conversion
         /// </summary>
         /// <param name="formData"></param>
@@ -43,7 +53,7 @@ namespace Assets.Scripts.DataBase
 
         public Snippet Post(ICreateFormData formData)
         {
-            return JsonUtility.FromJson<Snippet>(base.Post(URLConfig.BASEURL + baseTable, formData)); 
+            return JsonUtility.FromJson<Snippet>(base.Post(URLConfig.BASEURL + baseTable, formData));
         }
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace Assets.Scripts.DataBase
         /// <param name="formData">data to be uploaded</param>
         /// <returns></returns>
         public Snippet Put(IBaseConverter<Snippet> formData)
-        { 
+        {
             return this.Put(formData.GetBaseInterFace());
         }
 
