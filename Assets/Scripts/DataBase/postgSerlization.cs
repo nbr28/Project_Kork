@@ -36,17 +36,27 @@ namespace Assets.Scripts.DataBase
     }
 
     [System.Serializable]
-    public class Board
+    public class Board : ICreateFormData
     {
         public int Board_Id;
         public string Board_Name;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
     }
     
     [System.Serializable]
-    public class Tag
+    public class Tag : ICreateFormData
     {
         public int Snippet_Id;
         public string Tag_Name;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [System.Serializable]
@@ -85,19 +95,29 @@ namespace Assets.Scripts.DataBase
     }
 
     [System.Serializable]
-    public class Connection
+    public class Connection : ICreateFormData
     {
         public int Snippet_Id;
         public int Association_Id;
         public string data;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [System.Serializable]
-    public class Association
+    public class Association : ICreateFormData
     {
         public int Association_Id;
         public AssociationsName.Association.DataType Association_Data_Type;
         public string Association_Name;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
 
         public override string ToString()
         {
@@ -106,10 +126,15 @@ namespace Assets.Scripts.DataBase
     }
 
     [System.Serializable]
-    public class Yarn
+    public class Yarn : ICreateFormData
     {
         public string Yarn_Name;
         public int Yarn_Id;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
 
         public override string ToString()
         {
@@ -119,21 +144,31 @@ namespace Assets.Scripts.DataBase
 
 
     [System.Serializable]
-    public class YarnLine
+    public class YarnLine : ICreateFormData
     {
         public int Snippet_Id_To;
         public int Snippet_Id_From;
         public int Yarn_Id=-1;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
     [System.Serializable]
-    public class AssociationView
+    public class AssociationView : ICreateFormData
     {
         public int Association_Id;
         public AssociationsName.Association.DataType Association_Data_Type;
         public string Association_Name;
         public int Snippet_Id;
         public string Connection_Data;
+
+        public List<IMultipartFormSection> CreateForm()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
