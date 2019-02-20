@@ -1,30 +1,23 @@
-﻿using Proyecto26;
+﻿using Assets.Scripts.DataBase.Handlers;
+using Assets.Scripts.DataBase.Interfaces;
+using Proyecto26;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.DataBase
 {
-    public class YarnLineHandler
+    public class YarnLineHandler : GenericCRUD<YarnLine>
     {
+        [Obsolete]
         private RequestHelper currentRequest;
-        private MonoBehaviour mono;
+        [Obsolete]
         private YarnLine[] yarnLines;
+        [Obsolete]
         private YarnLine yarnLine;
         private const string baseTable = "YarnLine";
 
-        /// <summary>
-        /// Constructor for the YarnLineHandler class
-        /// </summary>
-        /// <param name="mono">a script with monobehavior that will be attached to this script</param>
-        public YarnLineHandler(MonoBehaviour mono)
-        {
-            this.mono = mono;
-        }
+
 
         /// <summary>
         /// Gets all the yarn lines in the table
@@ -32,8 +25,7 @@ namespace Assets.Scripts.DataBase
         /// <returns></returns>
         public YarnLine[] GetRequestAllYarnLines()
         {
-            mono.StartCoroutine(GetAllYarnLine());
-            return yarnLines;
+            return JsonHelper.getJsonArray<YarnLine>(base.Get(URLConfig.BASEURL + baseTable + "s"));
         }
 
         /// <summary>
@@ -42,8 +34,7 @@ namespace Assets.Scripts.DataBase
         /// <returns></returns>
         public YarnLine[] GetRequestSingleYarnById(int yarnId)
         {
-            mono.StartCoroutine(GetYarnLineById(yarnId));
-            return yarnLines;
+            return JsonHelper.getJsonArray<YarnLine>(base.Get(URLConfig.BASEURL + baseTable + yarnId));
         }
 
         /// <summary>
@@ -52,25 +43,39 @@ namespace Assets.Scripts.DataBase
         /// <returns></returns>
         public YarnLine[] GetRequestYarnsBySnippetId(int snippetId)
         {
-            mono.StartCoroutine(GetYarnLineById(snippetId));
-            return yarnLines;
+            return JsonHelper.getJsonArray<YarnLine>(base.Get(URLConfig.BASEURL + baseTable + "/snippetId/" + snippetId));
         }
 
 
-        /// <summary>
-        /// Posts a yarn line
-        /// </summary>
-        /// <param name="yarn"></param>
-        public void PostYarn(YarnLine yarn)
+        public YarnLine Post(IBaseConverter<YarnLine> formData)
         {
-            mono.StartCoroutine(_PostYarnLine(yarn));
+            return this.Post(formData.GetBaseInterFace());
         }
+
+
+        public YarnLine Post(ICreateFormData formData)
+        {
+            return JsonUtility.FromJson<YarnLine>(base.Post(URLConfig.BASEURL + baseTable, formData));
+        }
+
+
+        public YarnLineUpdate Put(IBaseConverter<YarnLineUpdate> formData)
+        {
+            return this.Put(formData.GetBaseInterFace());
+        }
+
+        public YarnLineUpdate Put(ICreateFormData obj)
+        {
+            return JsonUtility.FromJson<YarnLineUpdate>(base.Put(URLConfig.BASEURL + baseTable, obj));
+        }
+
 
         /// <summary>
         /// POST request to create a new yarn line
         /// </summary>
         /// <param name="yarnline">yarn line</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator _PostYarnLine(YarnLine yarnline, string uri = URLConfig.BASEURL + baseTable)
         {
             WWWForm form = new WWWForm();
@@ -88,6 +93,7 @@ namespace Assets.Scripts.DataBase
         /// GET request to retrieve all yarn lines
         /// </summary>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator GetAllYarnLine(string uri = URLConfig.BASEURL + baseTable + "s")
         {
             WWW request = new WWW(uri);
@@ -101,6 +107,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="yarnLineId">id of yarn line</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator GetYarnLineById(int yarnLineId, string uri = URLConfig.BASEURL + baseTable)
         {
             WWW request = new WWW(uri + "/snippetId/" + yarnLineId);
@@ -114,6 +121,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="snippetId">snippet id</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator GetYarnLineBySnippetId(int snippetId, string uri = URLConfig.BASEURL + baseTable)
         {
             WWW request = new WWW(uri + "/snippet/" + snippetId);
