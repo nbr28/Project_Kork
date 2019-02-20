@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.DataBase;
+using Assets.Scripts.DataBase.Handlers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,23 +13,29 @@ public class GalleryManager : MonoBehaviour
     // Dictionary of snippet GameObjects with its SnippetState ID as the key
     public Dictionary<int, GameObject> boardObjectDict;
 
-    // TODO: connect to @Natan's calls
     //Assets.Scripts.DataBase.Board[] boardArr = boardHandler.GetAllBoards();
-    private int[] boardArr = { 1, 2, 3 };
+    private Board[] boardArr
+    {
+        get
+        {
+            BoardHandler boardHandler = new BoardHandler();
+            return boardHandler.GetAllBoards();
+        }
+    }
 
     private void createGallery()
     {
         boardObjectDict = new Dictionary<int, GameObject>();
 
-        // TODO: connect to @Natan's calls
+       
         //foreach(Assets.Scripts.DataBase.Board board in boardArr)
-        foreach (int board in boardArr)
+        foreach (Board board in boardArr)
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
             instantiatedBoard.transform.parent = GameObject.Find("Canvas").transform;
 
             // TODO: make it into a nice grid -> check GridLayout
-            instantiatedBoard.transform.localPosition = new Vector3(-540 + board * 180, 0, 0);
+            instantiatedBoard.transform.localPosition = new Vector3(-540 + board.Board_Id%3 * 180, 0, 0);
 
             // Debug.Log(instantiatedBoard.transform.localPosition);
 
@@ -41,8 +49,8 @@ public class GalleryManager : MonoBehaviour
             //boardObjectDict.Add(instBoardState.Id, instantiatedBoard);
 
             instantiatedBoard.name = "Item " + board;
-            instantiatedBoard.GetComponentInChildren<Text>().text = "Item " + board;
-            boardObjectDict.Add(board, instantiatedBoard);
+            instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
+            boardObjectDict.Add(board.Board_Id, instantiatedBoard);
         }
     }
     private void Awake()

@@ -44,7 +44,10 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Board_Id", this.Board_Id.ToString()));
+            formData.Add(new MultipartFormDataSection("Board_Name", this.Board_Name));
+            return formData;
         }
     }
     

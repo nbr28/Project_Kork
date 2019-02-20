@@ -13,7 +13,7 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    public int boardId;
+    public int boardId { get; set; }
 
     void Start()
     {
