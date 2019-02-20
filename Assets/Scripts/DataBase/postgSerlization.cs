@@ -182,6 +182,15 @@ namespace Assets.Scripts.DataBase
         public int Snippet_Id_From=-1;
         public int Yarn_Id=-1;
 
+        public YarnLine() { }
+
+        public YarnLine(int snippet_Id_To, int snippet_Id_From, int yarn_Id)
+        {
+            Snippet_Id_To = snippet_Id_To;
+            Snippet_Id_From = snippet_Id_From;
+            Yarn_Id = yarn_Id;
+        }
+
         public List<IMultipartFormSection> CreateForm()
         {
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
@@ -196,6 +205,12 @@ namespace Assets.Scripts.DataBase
     {
         public int Old_Snippet_Id_To = -1;
         public int Old_Snippet_Id_From = -1;
+
+        public YarnLineUpdate(int old_Snippet_Id_To, int old_Snippet_Id_From, int snippet_Id_To, int snippet_Id_From, int yarn_Id) : base(snippet_Id_To, snippet_Id_From, yarn_Id)
+        {
+            Old_Snippet_Id_To = old_Snippet_Id_To;
+            Old_Snippet_Id_From = old_Snippet_Id_From;
+        }
 
         public new List<IMultipartFormSection> CreateForm()
         {

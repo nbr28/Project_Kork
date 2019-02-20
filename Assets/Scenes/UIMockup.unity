@@ -5422,8 +5422,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1102720310}
-        m_MethodName: disableYarnSelection
+      - m_Target: {fileID: 1546121685}
+        m_MethodName: saveYarn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

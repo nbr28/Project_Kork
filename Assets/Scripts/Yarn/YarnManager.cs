@@ -226,16 +226,23 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
 
     public void saveYarn()
     {
-        //If we're adding a new year
+        YarnHandler yarnHandler = new YarnHandler();
+        Yarn newYarn = new Yarn();
+        newYarn.Yarn_Name = uiManager.yarnNameField.text;
+
+        //If we're adding a new yarn
         if (yarnEditor.getID() == -1)
         {
-
+            newYarn = yarnHandler.Post(newYarn);
         }
         //If we're adding to an existing yarn group
         else
         {
-
+            newYarn.Yarn_Id = yarnEditor.getID();
         }
+
+        YarnLineHandler yarnLineHandler = new YarnLineHandler();
+        yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
     }
 
     public void Save()
