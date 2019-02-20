@@ -52,35 +52,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
 
     // Use this for initialization
     void Start () {
-        createYarnLines();
-
-        UniqueYarnIDList = new List<int>();
-        UniqueYarnNameList = new List<string>();
-
-        UniqueYarnIDList.Add(-1);
-        UniqueYarnNameList.Add("---");
-
-        YarnHandler yarnHandler = new YarnHandler();
-
-        // Populate the unique name and unique id lists
-        foreach (GameObject y in yarnLineObjectList)
-        {
-            // Get the renderer component
-            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-            int currentYarnID = ylr.YarnID;
-
-            // Add yarn id to list, if it isn't already in
-            if (!UniqueYarnIDList.Contains(ylr.YarnID))
-            {
-                UniqueYarnIDList.Add(ylr.YarnID);
-                UniqueYarnNameList.Add(yarnHandler.GetRequestSingleYarnById(ylr.YarnID).Yarn_Name);//request the yarn names from the db
-            }
-
-        }
-
-       
-
-        uiManager.setYarnSelectionDropDown(UniqueYarnNameList);
+        init();
     }
 
     // Utilizes YarnLineHandler class to perform a get call to the database and retrieve a list of YarnLine objects
@@ -131,6 +103,37 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
                 }
             }
         }
+    }
+
+    void init()
+    {
+        createYarnLines();
+
+        UniqueYarnIDList = new List<int>();
+        UniqueYarnNameList = new List<string>();
+
+        UniqueYarnIDList.Add(-1);
+        UniqueYarnNameList.Add("---");
+
+        YarnHandler yarnHandler = new YarnHandler();
+
+        // Populate the unique name and unique id lists
+        foreach (GameObject y in yarnLineObjectList)
+        {
+            // Get the renderer component
+            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
+            int currentYarnID = ylr.YarnID;
+
+            // Add yarn id to list, if it isn't already in
+            if (!UniqueYarnIDList.Contains(ylr.YarnID))
+            {
+                UniqueYarnIDList.Add(ylr.YarnID);
+                UniqueYarnNameList.Add(yarnHandler.GetRequestSingleYarnById(ylr.YarnID).Yarn_Name);//request the yarn names from the db
+            }
+
+        }
+
+        uiManager.setYarnSelectionDropDown(UniqueYarnNameList);
     }
 
     // Given a yarn ID, returns a list of all snippet IDs involved
@@ -243,6 +246,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
 
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
+
+        init();
     }
 
     public void Save()
