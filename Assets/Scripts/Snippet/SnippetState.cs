@@ -5,7 +5,6 @@ using TMPro;
 using AssociationsName;
 using Assets.Scripts.DataBase;
 using System;
-using Association = AssociationsName.Association;
 using Assets.Scripts.DataBase.Interfaces;
 
 public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Snippet>
@@ -25,13 +24,126 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     public RectTransform tagBar;
 
     public int id;
-    public string title;
-    public string contents;
+
+    public string title
+    {
+        get
+        {
+            return assocations[new AssociationState(m_title_AssociationName, DataType.String)];
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_title_AssociationName, DataType.String)))
+            {
+                assocations[new AssociationState(m_title_AssociationName, DataType.String)] = value;
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_title_AssociationName, DataType.String),value);
+            }
+        }
+    }
+
+    public string contents
+    {
+        get
+        {
+            return assocations[new AssociationState(m_content_AssociationName, DataType.String)];
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_content_AssociationName, DataType.String)))
+            {
+                assocations[new AssociationState(m_content_AssociationName, DataType.String)] = value;
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_content_AssociationName, DataType.String), value);
+            }
+        }
+    }
+
     public string Path_To_Data;
-    public List<string> tags= new List<string>();
-    public float x, y, z;
-    public string titleBarColor;
-    public Dictionary<Association, string> assocations = new Dictionary<Association, string>();
+
+    public List<string> tags = new List<string>();
+    public float x
+    {
+        get
+        {
+            return float.Parse(assocations[new AssociationState(m_X_associationName, DataType.Float)]);
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_X_associationName, DataType.Float)))
+            {
+                assocations[new AssociationState(m_X_associationName, DataType.Float)] = value.ToString();
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_X_associationName, DataType.Float), value.ToString());
+            }
+        }
+    }
+
+    public float y
+    {
+        get
+        {
+            return float.Parse(assocations[new AssociationState(m_Y_associationName, DataType.Float)]);
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_Y_associationName, DataType.Float)))
+            {
+                assocations[new AssociationState(m_Y_associationName, DataType.Float)] = value.ToString();
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_Y_associationName, DataType.Float), value.ToString());
+            }
+        }
+    }
+
+    public float z
+    {
+        get
+        {
+            return float.Parse(assocations[new AssociationState(m_Z_associationName, DataType.Float)]);
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_Z_associationName, DataType.Float)))
+            {
+                assocations[new AssociationState(m_Z_associationName, DataType.Float)] = value.ToString();
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_Z_associationName, DataType.Float), value.ToString());
+            }
+        }
+    }
+
+
+    public string titleBarColor
+    {
+        get
+        {
+            return assocations[new AssociationState(m_titleBarColor_AssociationName, DataType.String)];
+        }
+        set
+        {
+            if (assocations.ContainsKey(new AssociationState(m_titleBarColor_AssociationName, DataType.String)))
+            {
+                assocations[new AssociationState(m_titleBarColor_AssociationName, DataType.String)] = value;
+            }
+            else
+            {
+                assocations.Add(new AssociationState(m_titleBarColor_AssociationName, DataType.String), value);
+            }
+        }
+    }
+
+    public Dictionary<AssociationState, string> assocations = new Dictionary<AssociationState, string>();
 
 
 
@@ -39,7 +151,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     /// <summary>
     /// Used when loaded from db to trigger rendering snippet
     /// </summary>
-    public void loadState(Tag[] tags, Assets.Scripts.DataBase.Snippet snippet, AssociationView[] associationViews)
+    public void loadState(Tag[] tags, Snippet snippet, AssociationView[] associationViews)
     {
 
         //Add the snippet Information
@@ -52,29 +164,30 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
         foreach (AssociationView associationView in associationViews)
         {
-            //default loaded associations
-            if (associationView.Association_Name == m_X_associationName)
-                this.x = float.Parse(associationView.Connection_Data);
-            else if (associationView.Association_Name == m_Y_associationName)
-                this.y = float.Parse(associationView.Connection_Data);
-            else if (associationView.Association_Name == m_Z_associationName)
-                this.z = float.Parse(associationView.Connection_Data);
-            else if (associationView.Association_Name == m_content_AssociationName)
-                this.contents = associationView.Connection_Data;
-            else if (associationView.Association_Name == m_titleBarColor_AssociationName)
-                this.titleBarColor = associationView.Connection_Data;
-            else if (associationView.Association_Name == m_title_AssociationName)
-                this.title = associationView.Connection_Data;
-            else
-            {
-                //If they are not default loaded add them to the object as regular associations
-                this.assocations.Add(new Association(associationView.Association_Name, associationView.Association_Data_Type,this.id), associationView.Connection_Data);
-            }
+            this.assocations.Add(associationView.GetAssociationKeyPair().Key,associationView.GetAssociationKeyPair().Value);
+            ////default loaded associations
+            //if (associationView.Association_Name == m_X_associationName)
+            //    this.x = float.Parse(associationView.Connection_Data);
+            //else if (associationView.Association_Name == m_Y_associationName)
+            //    this.y = float.Parse(associationView.Connection_Data);
+            //else if (associationView.Association_Name == m_Z_associationName)
+            //    this.z = float.Parse(associationView.Connection_Data);
+            //else if (associationView.Association_Name == m_content_AssociationName)
+            //    this.contents = associationView.Connection_Data;
+            //else if (associationView.Association_Name == m_titleBarColor_AssociationName)
+            //    this.titleBarColor = associationView.Connection_Data;
+            //else if (associationView.Association_Name == m_title_AssociationName)
+            //    this.title = associationView.Connection_Data;
+            //else
+            //{
+            //    //If they are not default loaded add them to the object as regular associations
+            //    this.assocations.Add(new AssociationState(associationView.Association_Name, associationView.Association_Data_Type, this.id), associationView.Connection_Data);
+            //}
         }
 
 
 
-        transform.position = new Vector3(x*2, y*2, Math.Abs(z*2));
+        transform.position = new Vector3(x * 2, y * 2, Math.Abs(z * 2));
         titleBar.GetComponent<TextMeshPro>().SetText(title);
         contentPane.GetComponent<TextMeshPro>().SetText(contents);
 
@@ -101,35 +214,30 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     /// </summary>
     public void Save()
     {
-        ConnectionHandler connectionHandler = new ConnectionHandler(this);//create saver
-        //foreach(KeyValuePair<Association,string> association in assocations)
+        //ConnectionHandler connectionHandler = new ConnectionHandler();//create saver
+        //foreach (KeyValuePair<Association, string> association in assocations)
         //{
-        //    Connection tempConnection = new Connection
-        //    {
-        //        Assoication_Id = association.Key.Association_Id,
-        //        Snippet_Id = this.id,
-        //        data = association.Value
-        //    };
 
-        //    connectionHandler.PostConnection(tempConnection);//save 
+
+        //    connectionHandler.Post();//save 
         //}
+        throw new NotImplementedException();
+        //Connection conTitle = new Connection
+        //{
+        //    Association_Id = 78,
+        //    Snippet_Id=this.id,
+        //    data=this.title
+        //};
 
-        Connection conTitle = new Connection
-        {
-            Association_Id = 78,
-            Snippet_Id=this.id,
-            data=this.title
-        };
+        //Connection conContent = new Connection
+        //{
+        //    Association_Id = 79,
+        //    Snippet_Id = this.id,
+        //    data = this.contents
+        //};
 
-        Connection conContent = new Connection
-        {
-            Association_Id = 79,
-            Snippet_Id = this.id,
-            data = this.contents
-        };
-
-        connectionHandler.PutConnection(conTitle);
-        connectionHandler.PutConnection(conContent);
+        //connectionHandler.PutConnection(conTitle);
+        //connectionHandler.PutConnection(conContent);
 
     }
 
@@ -150,6 +258,6 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
     public Snippet GetBaseInterFace()
     {
-        return new Snippet(this.id,this.Path_To_Data);
+        return new Snippet(this.id, this.Path_To_Data);
     }
 }

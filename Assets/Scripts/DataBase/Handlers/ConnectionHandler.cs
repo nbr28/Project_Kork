@@ -11,6 +11,11 @@ namespace Assets.Scripts.DataBase
     {
 
         private const string baseTable = "Connection";
+        [Obsolete]
+        private Connection connection;
+
+        [Obsolete]
+        private Connection[] connections;
 
         /// <summary>
         /// Getter for all connections.

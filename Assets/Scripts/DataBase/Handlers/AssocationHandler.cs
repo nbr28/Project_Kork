@@ -56,26 +56,24 @@ namespace Assets.Scripts.DataBase
 
         public Association Post(IBaseConverter<Association> formData)
         {
-            throw new NotImplementedException();
-            //return this.Post(formData.GetBaseInterFace());
+
+            return this.Post(formData.GetBaseInterFace());
         }
 
         public Association Post(ICreateFormData formData)
         {
-            throw new NotImplementedException();
             return JsonUtility.FromJson<Association>(base.Post(URLConfig.BASEURL + baseTable, formData));
         }
 
 
         public Association Put(IBaseConverter<Association> formData)
         {
-            throw new NotImplementedException();
-            //return this.Put(formData.GetBaseInterFace());
+         
+            return this.Put(formData.GetBaseInterFace());
         }
 
         public Association Put(ICreateFormData obj)
         {
-            throw new NotImplementedException();
             return JsonUtility.FromJson<Association>(base.Put(URLConfig.BASEURL + baseTable, obj));
         }
 

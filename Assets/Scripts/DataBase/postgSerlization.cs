@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataBase.Interfaces;
+using AssociationsName;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,8 +31,8 @@ namespace Assets.Scripts.DataBase
 
     public static class URLConfig
     {
-        public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
-        //public const string BASEURL = "http://localhost:3000/api/";
+        //public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
+        public const string BASEURL = "http://localhost:3000/api/";
         public static int TempBoardId = 1;
     }
 
@@ -118,8 +119,15 @@ namespace Assets.Scripts.DataBase
     public class Association : ICreateFormData
     {
         public int Association_Id;
-        public AssociationsName.Association.DataType Association_Data_Type;
+        public AssociationsName.DataType Association_Data_Type;
         public string Association_Name;
+
+        public Association(int association_Id, DataType association_Data_Type, string association_Name)
+        {
+            Association_Id = association_Id;
+            Association_Data_Type = association_Data_Type;
+            Association_Name = association_Name;
+        }
 
         public List<IMultipartFormSection> CreateForm()
         {
@@ -179,7 +187,7 @@ namespace Assets.Scripts.DataBase
     public class AssociationView : ICreateFormData
     {
         public int Association_Id;
-        public AssociationsName.Association.DataType Association_Data_Type;
+        public AssociationsName.DataType Association_Data_Type;
         public string Association_Name;
         public int Snippet_Id;
         public string Connection_Data;
@@ -187,6 +195,12 @@ namespace Assets.Scripts.DataBase
         public List<IMultipartFormSection> CreateForm()
         {
             throw new NotImplementedException();
+        }
+
+        public KeyValuePair<AssociationState, string> GetAssociationKeyPair()
+        {
+           return new KeyValuePair<AssociationState, string>(new AssociationState(this.Association_Name, this.Association_Data_Type, this.Association_Id),this.Connection_Data);
+             
         }
     }
 }
