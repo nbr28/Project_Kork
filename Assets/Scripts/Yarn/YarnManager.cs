@@ -58,7 +58,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         UniqueYarnIDList.Add(-1);
         UniqueYarnNameList.Add("---");
 
-        YarnHandler yarnHandler = new YarnHandler(this);
+        YarnHandler yarnHandler = new YarnHandler();
 
         // Populate the unique name and unique id lists
         foreach (GameObject y in yarnLineObjectList)
@@ -84,7 +84,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     // Utilizes YarnLineHandler class to perform a get call to the database and retrieve a list of YarnLine objects
     void loadYarnLineData()
     {
-        YarnLineHandler yarnLineHandler = new YarnLineHandler(this);
+        YarnLineHandler yarnLineHandler = new YarnLineHandler();
 
         this.yarnList = new List<YarnLine>(yarnLineHandler.GetRequestAllYarnLines());
     }
