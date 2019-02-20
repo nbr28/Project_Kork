@@ -192,6 +192,20 @@ namespace Assets.Scripts.DataBase
         }
     }
 
+    public class YarnLineUpdate : YarnLine
+    {
+        public int Old_Snippet_Id_To = -1;
+        public int Old_Snippet_Id_From = -1;
+
+        public new List<IMultipartFormSection> CreateForm()
+        {
+            List<IMultipartFormSection> formData = base.CreateForm();
+            formData.Add(new MultipartFormDataSection("Old_Snippet_Id_To", this.Old_Snippet_Id_To.ToString()));
+            formData.Add(new MultipartFormDataSection("Old_Snippet_Id_From", this.Old_Snippet_Id_From.ToString()));
+            return formData;
+        }
+    }
+
 
     [System.Serializable]
     public class AssociationView : ICreateFormData
