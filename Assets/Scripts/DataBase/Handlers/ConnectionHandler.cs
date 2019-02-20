@@ -153,7 +153,7 @@ namespace Assets.Scripts.DataBase
             WWWForm form = new WWWForm();
             form.AddField("Snippet_Id", connection.Snippet_Id);
             form.AddField("Assoication_Id", connection.Association_Id);
-            form.AddField("Connection_Data", connection.data);
+            form.AddField("Connection_Data", connection.Connection_Data);
             using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, form))
             {
                 while (!webRequest.isDone) ;

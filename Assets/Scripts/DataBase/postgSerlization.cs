@@ -106,13 +106,13 @@ namespace Assets.Scripts.DataBase
     {
         public int Snippet_Id;
         public int Association_Id;
-        public string data;
+        public string Connection_Data;
 
         public Connection(int snippet_Id, int association_Id, string data)
         {
             Snippet_Id = snippet_Id;
             Association_Id = association_Id;
-            this.data = data;
+            this.Connection_Data = data;
         }
 
         public List<IMultipartFormSection> CreateForm()
@@ -120,7 +120,7 @@ namespace Assets.Scripts.DataBase
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
             formData.Add(new MultipartFormDataSection("Snippet_Id", this.Snippet_Id.ToString()));
             formData.Add(new MultipartFormDataSection("Association_Id", this.Association_Id.ToString()));
-            formData.Add(new MultipartFormDataSection("data", this.data));
+            formData.Add(new MultipartFormDataSection("Connection_Data", this.Connection_Data));
             return formData;
         }
     }
