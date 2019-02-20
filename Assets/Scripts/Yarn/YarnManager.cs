@@ -9,6 +9,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     public SnippetManager snippetManager;   // Reference to SnippetManager (be sure to set through Unity)
     public UIManager uiManager;
 
+    public YarnEditor yarnEditor;
+
     public List<GameObject> yarnLineObjectList;         // List of references to YarnLineRenderer objects
     private List<YarnLine> yarnList;                    // List of YarnLine objects, which will be populated with db query results
     //TODO: @Jerry from @Natan why do we have both a list of yarn lines and another list of each component?

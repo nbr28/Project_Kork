@@ -153,6 +153,7 @@ public class ClickManager : MonoBehaviour
                     //If the clicked object is a Snippet
                     if (objectHit.GetComponent<SnippetState>())
                     {
+
                         uiManager.loadSnippetDetails(objectHit.GetComponent<SnippetState>());
                         uiManager.showSnippetDetails();
                     }
