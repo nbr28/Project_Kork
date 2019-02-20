@@ -9,19 +9,8 @@ namespace Assets.Scripts.DataBase
 {
     public class ConnectionHandler : GenericCRUD<Connection>
     {
-        private MonoBehaviour mono;
-        private Connection[] connections;
-        private Connection connection;
-        private const string baseTable = "Connection";
 
-        /// <summary>
-        /// Constructor for ConnectionHandler class.
-        /// </summary>
-        /// <param name="mono">a script with monobehavior that will be attached to this script</param>
-        public ConnectionHandler(MonoBehaviour mono)
-        {
-            this.mono = mono;
-        }
+        private const string baseTable = "Connection";
 
         /// <summary>
         /// Getter for all connections.
