@@ -52,8 +52,9 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <returns></returns>
         public string Put(string url, ICreateFormData obj)
         {
-            UnityWebRequest www = UnityWebRequest.Post(url, obj.CreateForm());
+            UnityWebRequest www = UnityWebRequest.Put(url, JsonUtility.ToJson(obj));
             www.method = "PUT";
+            www.SetRequestHeader("Content-Type", "application/json");
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
             return www.downloadHandler.text;

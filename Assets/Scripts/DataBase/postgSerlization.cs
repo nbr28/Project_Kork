@@ -30,8 +30,8 @@ namespace Assets.Scripts.DataBase
 
     public static class URLConfig
     {
-        public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
-        // public const string BASEURL = "http://localhost:3000/api/";
+       // public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
+        public const string BASEURL = "http://localhost:3000/api/";
         public static int TempBoardId = 1;
     }
 
@@ -103,7 +103,11 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Snippet_Id", this.Snippet_Id.ToString()));
+            formData.Add(new MultipartFormDataSection("Association_Id", this.Association_Id.ToString()));
+            formData.Add(new MultipartFormDataSection("data", this.data));
+            return formData;
         }
     }
 

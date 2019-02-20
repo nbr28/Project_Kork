@@ -1,11 +1,12 @@
-﻿using Proyecto26;
+﻿using Assets.Scripts.DataBase.Handlers;
+using Proyecto26;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Assets.Scripts.DataBase
 {
-    public class ConnectionHandler
+    public class ConnectionHandler:GenericCRUD<Connection>
     {
         private MonoBehaviour mono;
         private Connection[] connections;
@@ -82,8 +83,8 @@ namespace Assets.Scripts.DataBase
         /// <param name="connection"></param>
         public void PutConnection(Connection connection)
         {
-
-           PutRequestConnection(connection);
+            base.Put(URLConfig.BASEURL + baseTable, connection);
+           //PutRequestConnection(connection);
         }
 
 
