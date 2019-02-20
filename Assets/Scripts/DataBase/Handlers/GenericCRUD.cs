@@ -34,7 +34,9 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <returns>The database return</returns>
         public virtual string Post(string url, ICreateFormData formData)
         {
-            UnityWebRequest www = UnityWebRequest.Post(url, formData.CreateForm());
+            UnityWebRequest www = UnityWebRequest.Put(url, JsonUtility.ToJson(formData));
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
             return www.downloadHandler.text;
