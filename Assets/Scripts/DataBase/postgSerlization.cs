@@ -55,7 +55,10 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Snippet_Id", this.Snippet_Id.ToString()));
+            formData.Add(new MultipartFormDataSection("Tag_Name", this.Tag_Name));
+            return formData;
         }
     }
 
@@ -120,7 +123,11 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Association_Id", this.Association_Id.ToString()));
+            formData.Add(new MultipartFormDataSection("Association_Data_Type", ((int)this.Association_Data_Type).ToString()));
+            formData.Add(new MultipartFormDataSection("Association_Name", this.Association_Name));
+            return formData;
         }
 
         public override string ToString()
@@ -137,7 +144,10 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Yarn_Name", this.Yarn_Name));
+            formData.Add(new MultipartFormDataSection("Yarn_Id", this.Yarn_Id.ToString()));
+            return formData;
         }
 
         public override string ToString()
@@ -156,7 +166,11 @@ namespace Assets.Scripts.DataBase
 
         public List<IMultipartFormSection> CreateForm()
         {
-            throw new NotImplementedException();
+            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+            formData.Add(new MultipartFormDataSection("Snippet_Id_To", this.Snippet_Id_To.ToString()));
+            formData.Add(new MultipartFormDataSection("Snippet_Id_From", this.Snippet_Id_From.ToString()));
+            formData.Add(new MultipartFormDataSection("Yarn_Id", this.Yarn_Id.ToString()));
+            return formData;
         }
     }
 
