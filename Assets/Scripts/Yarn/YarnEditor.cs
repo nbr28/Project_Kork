@@ -6,10 +6,21 @@ using UnityEngine;
 public class YarnEditor : MonoBehaviour
 {
     public ClickManager clickManager;
+
+    public bool lockFrom;
+    public bool lockTo;
+    public bool lockID;
+
     private YarnLine selection;
 
     private void Awake()
     {
+        selection = new YarnLine();
+
+        lockFrom = false;
+        lockTo = false;
+        lockID = false;
+
         resetYarnSelection();
     }
 
@@ -20,6 +31,9 @@ public class YarnEditor : MonoBehaviour
 
     public void disableYarnSelection()
     {
+        lockFrom = false;
+        lockTo = false;
+        lockID = false;
         resetYarnSelection();
         clickManager.setClickMode(0);
     }

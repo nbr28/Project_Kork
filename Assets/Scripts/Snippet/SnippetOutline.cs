@@ -28,8 +28,8 @@ public class SnippetOutline : MonoBehaviour
         return outline.enabled;
     }
 
-    public void setOutlineColor(int r, int g, int b, int a)
+    public void setOutlineColor(float r, float g, float b, float a)
     {
-        outline.OutlineColor = new Color(r, g, b, a);
+        outline.OutlineColor = new Color(r/255, g/255, b/255, a/255);
     }
 }

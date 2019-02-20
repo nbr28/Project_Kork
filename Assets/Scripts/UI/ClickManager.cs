@@ -77,7 +77,7 @@ public class ClickManager : MonoBehaviour
                 //If the current hit object is a Snippet
                 if (objectHit.GetComponent<SnippetState>())
                 {
-                    objectHit.GetComponent<SnippetOutline>().setOutlineColor(255, 246, 0, 255);
+                    objectHit.GetComponent<SnippetOutline>().setOutlineColor(255f, 246f, 0f, 255f);
                     objectHit.GetComponent<SnippetOutline>().setToggle(true);
                 }
 
@@ -141,8 +141,10 @@ public class ClickManager : MonoBehaviour
                 }
                 else if (lastHit != objectHit)
                 {
-                    //If we hit a different object than the last, remove hightlight on last selected snippet
-                    if (lastHit.GetComponent<SnippetState>())
+                    //If we hit a different object than the last, remove hightlight on last selected snippet, but only if it's not a yarn point selection
+                    if (lastHit.GetComponent<SnippetState>() &&
+                        uiManager.yarnManager.yarnEditor.getFrom() != lastHit.GetComponent<SnippetState>().id &&
+                        uiManager.yarnManager.yarnEditor.getTo() != lastHit.GetComponent<SnippetState>().id)
                     {
                         lastHit.GetComponent<SnippetOutline>().setToggle(false);
                     }
@@ -154,7 +156,7 @@ public class ClickManager : MonoBehaviour
                 //If the current hit object is a Snippet
                 if (objectHit.GetComponent<SnippetState>())
                 {
-                    objectHit.GetComponent<SnippetOutline>().setOutlineColor(255, 0, 0, 255);
+                    objectHit.GetComponent<SnippetOutline>().setOutlineColor(255f, 0f, 0f, 255f);
                     objectHit.GetComponent<SnippetOutline>().setToggle(true);
                 }
 
@@ -164,13 +166,37 @@ public class ClickManager : MonoBehaviour
                     //If the clicked object is a Snippet
                     if (objectHit.GetComponent<SnippetState>())
                     {
-                        if (uiManager.yarnManager.yarnEditor.getFrom() == -1)
+                        //If we don't have a "from" yet, set the from ID, but only if it's not the same as the "to" (prevents same value in to and from)
+                        if (
+                            uiManager.yarnManager.yarnEditor.getFrom() == -1 &&
+                            uiManager.yarnManager.yarnEditor.getTo() != objectHit.GetComponent<SnippetState>().id
+                            )
                         {
                             uiManager.yarnManager.yarnEditor.setFrom(objectHit.GetComponent<SnippetState>().id);
                         }
-                        else
+                        //If we do have from, and it's the same snippet, deselect it, but only if it's not locked
+                        else if (
+                            uiManager.yarnManager.yarnEditor.getFrom() == objectHit.GetComponent<SnippetState>().id &&
+                            !uiManager.yarnManager.yarnEditor.lockFrom
+                            )
+                        {
+                            uiManager.yarnManager.yarnEditor.setFrom(-1);
+                        }
+                        //If we have a from, but not a "to", set to ID, but only if it's not the same as the "from" (prevents same value in to and from), and only if it's not locked
+                        else if (
+                            uiManager.yarnManager.yarnEditor.getTo() == -1 &&
+                            uiManager.yarnManager.yarnEditor.getFrom() != objectHit.GetComponent<SnippetState>().id
+                            )
                         {
                             uiManager.yarnManager.yarnEditor.setTo(objectHit.GetComponent<SnippetState>().id);
+                        }
+                        //If we have a from, and a "to", and it's the same snippet, deselect it
+                        else if (
+                            uiManager.yarnManager.yarnEditor.getTo() == objectHit.GetComponent<SnippetState>().id &&
+                            !uiManager.yarnManager.yarnEditor.lockTo
+                            )
+                        {
+                            uiManager.yarnManager.yarnEditor.setTo(-1);
                         }
                     }
                 }
@@ -179,8 +205,10 @@ public class ClickManager : MonoBehaviour
             {
                 objectHit = null;
 
-                //If we hit nothing, remove highlight on last selected snippet
-                if (lastHit && lastHit.GetComponent<SnippetState>())
+                //If we hit nothing, remove highlight on last selected snippet, but only if it's not a yarn point selection
+                if (lastHit && lastHit.GetComponent<SnippetState>() &&
+                    uiManager.yarnManager.yarnEditor.getFrom() != lastHit.GetComponent<SnippetState>().id &&
+                    uiManager.yarnManager.yarnEditor.getTo() != lastHit.GetComponent<SnippetState>().id)
                 {
                     lastHit.GetComponent<SnippetOutline>().setToggle(false);
                 }

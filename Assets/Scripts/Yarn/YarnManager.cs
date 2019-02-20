@@ -224,6 +224,20 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         }
     }
 
+    public void saveYarn()
+    {
+        //If we're adding a new year
+        if (yarnEditor.getID() == -1)
+        {
+
+        }
+        //If we're adding to an existing yarn group
+        else
+        {
+
+        }
+    }
+
     public void Save()
     {
         throw new System.NotImplementedException();

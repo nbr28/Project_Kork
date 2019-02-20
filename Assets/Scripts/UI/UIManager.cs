@@ -7,8 +7,6 @@ using Assets.Scripts.DataBase;
 
 public class UIManager : MonoBehaviour
 {
-    private bool snippetEditEnabled;
-
     //External Managers
     public SnippetManager snippetManager;
     public YarnManager yarnManager;
@@ -25,12 +23,20 @@ public class UIManager : MonoBehaviour
     public TMP_InputField snippetContentText;
     public TMP_Dropdown snippetYarnDropdown;
     public TMP_Dropdown snippetTagDropdown;
+    public Button closeSnippetButton;
+    public Button editSnippetButton;
+
+    //Editing Yarn and Tags
     public Button addYarnButton;
     public Button removeYarnButton;
     public Button addTagButton;
     public Button removeTagButton;
-    public Button closeSnippetButton;
-    public Button editSnippetButton;
+
+    //These are quite temporary (maybe)
+    public Button yarnSelectModeButton;
+    public Button quitYarnSelectModeButton;
+    public Button saveYarnButton;
+    public TMP_InputField yarnNameField;
 
     //Debug UI
     public GameObject dbgPanel;
@@ -43,6 +49,8 @@ public class UIManager : MonoBehaviour
     //When Snippet UI is up this will be the last
     private SnippetState LastClickedSnippet { get; set; }
 
+    private bool snippetEditEnabled;
+
     /// <summary>
     /// Yarn Handler to get yarn names
     /// </summary>
@@ -52,20 +60,49 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private YarnLineHandler _YarnLineHandler;
 
+    private List<int> yarnIds;
+
     void Awake()
     {
         this._YarnHandler = new YarnHandler(this);
         this._YarnLineHandler = new YarnLineHandler(this);
-        dbgPanel.SetActive(false);
+        //dbgPanel.SetActive(false);
         dimmerPanel.gameObject.SetActive(false);
         snippetDetailsPanel.gameObject.SetActive(false);
         disableSnippetEditing();
         snippetEditEnabled = false;
+
+        yarnNameField.gameObject.SetActive(false);
+        saveYarnButton.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        setDbgYarnFromText(yarnManager.yarnEditor.getFrom().ToString());
+        setDbgYarnToText(yarnManager.yarnEditor.getTo().ToString());
+        setDbgYarnTargetText(yarnManager.yarnEditor.getID().ToString());
 
+        if (
+            yarnManager.yarnEditor.getFrom() != -1 &&
+            yarnManager.yarnEditor.getTo() != -1
+            )
+        {
+            yarnNameField.gameObject.SetActive(true);
+        }
+        else
+        {
+            yarnNameField.text = "";
+            yarnNameField.gameObject.SetActive(false);
+        }
+
+        if (yarnNameField.text != "")
+        {
+            saveYarnButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            saveYarnButton.gameObject.SetActive(false);
+        }
     }
 
     public void setSnippetTitleText(string title)
@@ -122,7 +159,7 @@ public class UIManager : MonoBehaviour
 
         YarnLine[] yarnLines = this._YarnLineHandler.GetRequestYarnsBySnippetId(snippetID);
         List<string> yarnList = new List<string>();
-        List<int> yarnIds = new List<int>(5);
+        yarnIds = new List<int>(5);
 
         foreach (YarnLine yarnLine in yarnLines)
         {
@@ -167,6 +204,24 @@ public class UIManager : MonoBehaviour
     public void clearSnippetTagDropdownList()
     {
         snippetTagDropdown.ClearOptions();
+    }
+
+    public void addToExistingYarn()
+    {
+        if (yarnIds != null)
+        {
+            yarnManager.yarnEditor.setID(yarnIds[snippetYarnDropdown.value]);
+            yarnManager.yarnEditor.setFrom(LastClickedSnippet.id);
+            yarnManager.yarnEditor.lockFrom = true;
+        }
+
+        closeSnippetDetails();
+        yarnManager.yarnEditor.enableYarnSelection();
+    }
+
+    public void addNewYarn()
+    {
+
     }
 
     public void clearSnippetDetails()
@@ -273,7 +328,7 @@ public class UIManager : MonoBehaviour
     {
         if (dbgPanel.activeSelf)
         {
-            dbgObjectHitText.SetText("yarnSelFrom: " + text);
+            dbgYarnSelFromText.SetText("yarnSelFrom: " + text);
         }
     }
 
@@ -281,7 +336,7 @@ public class UIManager : MonoBehaviour
     {
         if (dbgPanel.activeSelf)
         {
-            dbgObjectHitText.SetText("yarnSelTo: " + text);
+            dbgYarnSelToText.SetText("yarnSelTo: " + text);
         }
     }
 
@@ -289,7 +344,7 @@ public class UIManager : MonoBehaviour
     {
         if (dbgPanel.activeSelf)
         {
-            dbgObjectHitText.SetText("yarnTargetID: " + text);
+            dbgYarnTargetIDText.SetText("yarnTargetID: " + text);
         }
     }
 
