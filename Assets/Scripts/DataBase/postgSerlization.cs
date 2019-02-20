@@ -105,6 +105,13 @@ namespace Assets.Scripts.DataBase
         public int Association_Id;
         public string data;
 
+        public Connection(int snippet_Id, int association_Id, string data)
+        {
+            Snippet_Id = snippet_Id;
+            Association_Id = association_Id;
+            this.data = data;
+        }
+
         public List<IMultipartFormSection> CreateForm()
         {
             List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
@@ -168,8 +175,8 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class YarnLine : ICreateFormData
     {
-        public int Snippet_Id_To;
-        public int Snippet_Id_From;
+        public int Snippet_Id_To=-1;
+        public int Snippet_Id_From=-1;
         public int Yarn_Id=-1;
 
         public List<IMultipartFormSection> CreateForm()
