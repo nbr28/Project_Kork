@@ -78,6 +78,7 @@ namespace Assets.Scripts.DataBase
         /// GET request for all tags.
         /// </summary>
         /// <param name="uri">url address that will be used for API call</param>
+        [Obsolete]
         private IEnumerator GetRequestGetAllTags(string uri = URLConfig.BASEURL + baseTable + "s")
         {
             WWW request = new WWW(uri);
@@ -91,6 +92,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="snippetId">snippet id</param>
         /// <param name="uri">url address that will be used for API call</param>
+        [Obsolete]
         private IEnumerator GetRequestGetTagBySnippetId(int snippetId, string uri = URLConfig.BASEURL + baseTable)
         {
             WWW request = new WWW(uri + "/SnippetId/" + snippetId);
@@ -104,6 +106,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="tagName">tag name</param>
         /// <param name="uri">url address that will be used for API call</param>
+        [Obsolete]
         private IEnumerator GetRequestGetTagByTagName(String tagName, string uri = URLConfig.BASEURL + baseTable)
         {
             WWW request = new WWW(uri + "/TagName?Tag_Name=" + tagName);
@@ -118,6 +121,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="tag">Tag to be sent</param>
         /// <param name="uri"></param>
+        [Obsolete]
         private IEnumerator PostRequestPostTag(Tag tag, string uri = URLConfig.BASEURL + baseTable)
         {
             WWWForm form = new WWWForm();
@@ -136,6 +140,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="tag">Tag to be sent</param>
         /// <param name="uri"></param>
+        [Obsolete]
         private IEnumerator DeleteRequestPostTag(Tag tag, string uri = URLConfig.BASEURL + baseTable)
         {
             WWWForm form = new WWWForm();
