@@ -1,5 +1,4 @@
-﻿using Models;
-using Proyecto26;
+﻿using Proyecto26;
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
