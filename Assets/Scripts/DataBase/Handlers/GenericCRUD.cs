@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataBase.Interfaces;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,7 +18,7 @@ namespace Assets.Scripts.DataBase.Handlers
         /// Get Request.
         /// </summary>
         /// <returns>The returned String</returns>
-        public string Get(string url)
+        public virtual string Get(string url)
         {
             UnityWebRequest www = UnityWebRequest.Get(url);
             www.SendWebRequest();
@@ -31,7 +32,7 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <param name="url"></param>
         /// <param name="formData"></param>
         /// <returns>The database return</returns>
-        public string Post(string url, ICreateFormData formData)
+        public virtual string Post(string url, ICreateFormData formData)
         {
             UnityWebRequest www = UnityWebRequest.Post(url, formData.CreateForm());
             www.SendWebRequest();
@@ -45,7 +46,7 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <param name="url"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string Put(string url, ICreateFormData obj)
+        public virtual string Put(string url, ICreateFormData obj)
         {
             UnityWebRequest www = UnityWebRequest.Put(url, JsonUtility.ToJson(obj));
             www.method = "PUT";
@@ -62,13 +63,13 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <param name="url"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string Delete(string url, ICreateFormData obj)
+        public virtual int Delete(string url, ICreateFormData obj)
         {
             UnityWebRequest www = UnityWebRequest.Post(url, obj.CreateForm());
             www.method = "DELETE";
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
-            return www.downloadHandler.text;
+            return Int32.Parse(www.downloadHandler.text);
         }
     }
 }
