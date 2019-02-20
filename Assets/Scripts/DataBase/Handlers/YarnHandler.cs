@@ -1,32 +1,25 @@
-﻿using Proyecto26;
-using RSG;
+﻿using Assets.Scripts.DataBase.Handlers;
+using Assets.Scripts.DataBase.Interfaces;
+using Proyecto26;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Assets.Scripts.DataBase
 {
-    public class YarnHandler
+    public class YarnHandler: GenericCRUD<Yarn>
     {
+        [Obsolete]
         private RequestHelper currentRequest;
         private MonoBehaviour mono;
+        [Obsolete]
         private Yarn[] yarns;
+        [Obsolete]
         private Yarn yarn;
         private const string baseTable = "Yarn";
 
-        /// <summary>
-        /// Constructor for the YarnHandler class
-        /// </summary>
-        /// <param name="mono">a script with monobehavior that will be attached to this script</param>
-        public YarnHandler(MonoBehaviour mono)
-        {
-            this.mono = mono;
-        }
+
 
         /// <summary>
         /// Gets all the yarns in the table
@@ -34,8 +27,7 @@ namespace Assets.Scripts.DataBase
         /// <returns>list of Yarns</returns>
         public Yarn[] GetRequestAllYarn()
         {
-            mono.StartCoroutine(GetAllYarn());
-            return yarns;
+            return JsonHelper.getJsonArray<Yarn>(base.Get(URLConfig.BASEURL + baseTable + "s"));
         }
 
         /// <summary>
@@ -45,28 +37,39 @@ namespace Assets.Scripts.DataBase
         /// <returns>single yarn</returns>
         public Yarn GetRequestSingleYarnById(int yarnId)
         {
-            mono.StartCoroutine(GetYarnById(yarnId));
-            return yarn;
+            return JsonUtility.FromJson<Yarn>(base.Get(URLConfig.BASEURL + baseTable + "/" + yarnId));
         }
 
-        /// <summary>
-        /// Posts a yarn
-        /// </summary>
-        /// <param name="yarn">Yarn object that does not have an ID (this function will ignore the id if it is present) </param>
-        /// <returns>The created yarn object with its Id or an id of  -1 if unsuccessful</returns>
-        public Yarn PostYarn(Yarn yarn)
+
+        public Yarn Put(IBaseConverter<Yarn> formData)
         {
-            mono.StartCoroutine(_PostYarn(yarn));
-            return this.yarn;
+            throw new NotImplementedException("API Update is needed before this will function Path does not exist");
+            return this.Put(formData.GetBaseInterFace());
+        }
+
+        public Yarn Put(ICreateFormData obj)
+        {
+            throw new NotImplementedException("API Update is needed before this will function Path does not exist");
+            return JsonUtility.FromJson<Yarn>(base.Put(URLConfig.BASEURL + baseTable, obj));
+        }
+
+        public Yarn Post(IBaseConverter<Yarn> formData)
+        {
+            return this.Post(formData.GetBaseInterFace());
+        }
+
+        public Yarn Post(ICreateFormData formData)
+        {
+            return JsonUtility.FromJson<Yarn>(base.Post(URLConfig.BASEURL + baseTable, formData));
         }
 
         /// <summary>
         /// Deletes the given yarn from the database. Note this will cascade and delete the references in the YarnLine table associated with this yarn id
         /// </summary>
         /// <param name="yarn">The yarn to be deleted</param>
-        public void DeleteYarn(Yarn yarn)
+        public override int Delete(string url, ICreateFormData obj)
         {
-            mono.StartCoroutine(DeleteYarnById(yarn.Yarn_Id));
+            return base.Delete(URLConfig.BASEURL + baseTable, obj);
         }
 
         /// <summary>
@@ -74,6 +77,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="yarn">yarn to be posted</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator _PostYarn(Yarn yarn, string uri = URLConfig.BASEURL + baseTable)
         {
             var x = new { Yarn_Id=-1};
@@ -92,6 +96,7 @@ namespace Assets.Scripts.DataBase
         /// GET request to retrieve all yarns
         /// </summary>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator GetAllYarn(string uri = URLConfig.BASEURL + baseTable + "s")
         {
             WWW request = new WWW(uri);
@@ -105,6 +110,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="yarnId">yarn id</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator GetYarnById(int yarnId, string uri = URLConfig.BASEURL + baseTable)
         {
             WWW request = new WWW(uri + "/" + yarnId);
@@ -119,6 +125,7 @@ namespace Assets.Scripts.DataBase
         /// </summary>
         /// <param name="yarnId">yarn id</param>
         /// <param name="uri">API url</param>
+        [Obsolete]
         private IEnumerator DeleteYarnById(int yarnId, string uri = URLConfig.BASEURL + baseTable)
         {
             UnityWebRequest request = UnityWebRequest.Delete(uri + "/" + yarnId);
