@@ -25,6 +25,10 @@ public class UIManager : MonoBehaviour
     public TMP_InputField snippetContentText;
     public TMP_Dropdown snippetYarnDropdown;
     public TMP_Dropdown snippetTagDropdown;
+    public Button addYarnButton;
+    public Button removeYarnButton;
+    public Button addTagButton;
+    public Button removeTagButton;
     public Button closeSnippetButton;
     public Button editSnippetButton;
 
