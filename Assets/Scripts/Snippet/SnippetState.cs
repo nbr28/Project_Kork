@@ -23,7 +23,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     public RectTransform contentPane;
     public RectTransform tagBar;
 
-    public int id;
+
 
     public string title
     {
@@ -63,9 +63,8 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
         }
     }
 
-    public string Path_To_Data;
+ 
 
-    public List<string> tags = new List<string>();
     public float x
     {
         get
@@ -143,6 +142,10 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
         }
     }
 
+    public int id;
+    public string Path_To_Data;
+
+    public List<string> tags = new List<string>();
     public Dictionary<AssociationState, string> assocations = new Dictionary<AssociationState, string>();
 
 
@@ -165,24 +168,6 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
         foreach (AssociationView associationView in associationViews)
         {
             this.assocations.Add(associationView.GetAssociationKeyPair().Key,associationView.GetAssociationKeyPair().Value);
-            ////default loaded associations
-            //if (associationView.Association_Name == m_X_associationName)
-            //    this.x = float.Parse(associationView.Connection_Data);
-            //else if (associationView.Association_Name == m_Y_associationName)
-            //    this.y = float.Parse(associationView.Connection_Data);
-            //else if (associationView.Association_Name == m_Z_associationName)
-            //    this.z = float.Parse(associationView.Connection_Data);
-            //else if (associationView.Association_Name == m_content_AssociationName)
-            //    this.contents = associationView.Connection_Data;
-            //else if (associationView.Association_Name == m_titleBarColor_AssociationName)
-            //    this.titleBarColor = associationView.Connection_Data;
-            //else if (associationView.Association_Name == m_title_AssociationName)
-            //    this.title = associationView.Connection_Data;
-            //else
-            //{
-            //    //If they are not default loaded add them to the object as regular associations
-            //    this.assocations.Add(new AssociationState(associationView.Association_Name, associationView.Association_Data_Type, this.id), associationView.Connection_Data);
-            //}
         }
 
 
@@ -207,38 +192,17 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
         this.GetComponent<MeshRenderer>().material.color = color;
     }
 
+
     /// <summary>
-    /// Does not save tags
-    /// TODO: Add tag Saving 
-    /// 
+    /// Saves the entr
     /// </summary>
     public void Save()
     {
-        //ConnectionHandler connectionHandler = new ConnectionHandler();//create saver
-        //foreach (KeyValuePair<Association, string> association in assocations)
-        //{
-
-
-        //    connectionHandler.Post();//save 
-        //}
-        throw new NotImplementedException();
-        //Connection conTitle = new Connection
-        //{
-        //    Association_Id = 78,
-        //    Snippet_Id=this.id,
-        //    data=this.title
-        //};
-
-        //Connection conContent = new Connection
-        //{
-        //    Association_Id = 79,
-        //    Snippet_Id = this.id,
-        //    data = this.contents
-        //};
-
-        //connectionHandler.PutConnection(conTitle);
-        //connectionHandler.PutConnection(conContent);
-
+        ConnectionHandler connectionHandler = new ConnectionHandler();
+        foreach(KeyValuePair<AssociationState, string> connetion in assocations)
+        {
+            connectionHandler.Put(new Connection(this.id, connetion.Key.Association_Id, connetion.Value));
+        }
     }
 
     public void Load()
