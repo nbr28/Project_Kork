@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Assets.Scripts.DataBase;
 
 public class Singleton : MonoBehaviour
 {
