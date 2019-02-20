@@ -64,8 +64,8 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        this._YarnHandler = new YarnHandler(this);
-        this._YarnLineHandler = new YarnLineHandler(this);
+        this._YarnHandler = new YarnHandler();
+        this._YarnLineHandler = new YarnLineHandler();
         //dbgPanel.SetActive(false);
         dimmerPanel.gameObject.SetActive(false);
         snippetDetailsPanel.gameObject.SetActive(false);
