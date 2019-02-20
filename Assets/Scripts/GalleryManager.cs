@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataBase;
 using Assets.Scripts.DataBase.Handlers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,17 @@ public class GalleryManager : MonoBehaviour
 {
     // Set the prefab in Editor!!! 
     public GameObject galleryItemPrefab;
+    // Set the button in Editor!!!
+    public TMP_InputField createBoardInput;
+
+    public void createNewBoard()
+    {
+        BoardHandler boardHandler = new BoardHandler();
+        Board board = new Board();
+        board.Board_Name = createBoardInput.text;
+        Debug.Log(board.Board_Name);
+        boardHandler.Post(board);
+    }
 
     private Board[] boardArr
     {
@@ -19,6 +31,7 @@ public class GalleryManager : MonoBehaviour
 
     private void createGallery()
     {
+        int i = 0;
         foreach (Board board in boardArr)
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
@@ -28,12 +41,11 @@ public class GalleryManager : MonoBehaviour
 
             instantiatedBoard.transform.parent = GameObject.Find("Canvas").transform;
             // TODO: make it into a nice grid -> check GridLayout
-            instantiatedBoard.transform.localPosition = new Vector3(-360 + board.Board_Id % 3 * 180, 0, 0);
-
+            instantiatedBoard.transform.localPosition = new Vector3(-450 + i * 180, 0, 0);
+            i++;
         }
-        
-        // TODO: plus sign for @Natan
     }
+
     private void Awake()
     {
         createGallery();
