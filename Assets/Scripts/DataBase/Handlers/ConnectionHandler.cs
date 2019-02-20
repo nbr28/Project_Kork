@@ -34,7 +34,7 @@ namespace Assets.Scripts.DataBase
         /// <param name="snippetId">snippet id</param>
         /// <param name="associationId">association id</param>
         /// <returns>single connection</returns>
-        public Connection GetConnection(int snippetId, int associationId)
+        public Connection Get(int snippetId, int associationId)
         {
             //mono.StartCoroutine(GetRequestGetConnection(snippetId, associationId));
             return JsonUtility.FromJson<Connection>(base.Get(URLConfig.BASEURL + baseTable + "/single?Snippet_Id=" + snippetId + "&Association_Id=" + associationId));
@@ -69,7 +69,7 @@ namespace Assets.Scripts.DataBase
         /// TODO: Return success status
         /// </summary>
         /// <param name="connection"></param>
-        public Connection PostConnection(Connection connection)
+        public Connection Post(Connection connection)
         {
             //mono.StartCoroutine(PostRequestConnection(connection));
             return JsonUtility.FromJson<Connection>(base.Post(URLConfig.BASEURL + baseTable, connection));
@@ -79,7 +79,7 @@ namespace Assets.Scripts.DataBase
         /// TODO: Return success status
         /// </summary>
         /// <param name="connection"></param>
-        public Connection PutConnection(Connection connection)
+        public Connection Put(Connection connection)
         {
             return JsonUtility.FromJson<Connection>(base.Put(URLConfig.BASEURL + baseTable, connection));
         }
@@ -181,22 +181,22 @@ namespace Assets.Scripts.DataBase
             //}
 
 
-            RestClient.Put<Connection>(uri, new Connection
-            {
-                Snippet_Id = connection.Snippet_Id,
-                Association_Id = connection.Association_Id,
-                data = connection.data
-            }, (err, res, body) =>
-            {
-                if (err != null)
-                {
-                    // EditorUtility.DisplayDialog("Error", err.Message, "Ok");
-                }
-                else
-                {
-                    //EditorUtility.DisplayDialog("Success", JsonUtility.ToJson(body, true), "Ok");
-                }
-            });
+            //RestClient.Put<Connection>(uri, new Connection
+            //{
+            //    Snippet_Id = connection.Snippet_Id,
+            //    Association_Id = connection.Association_Id,
+            //    data = connection.data
+            //}, (err, res, body) =>
+            //{
+            //    if (err != null)
+            //    {
+            //        // EditorUtility.DisplayDialog("Error", err.Message, "Ok");
+            //    }
+            //    else
+            //    {
+            //        //EditorUtility.DisplayDialog("Success", JsonUtility.ToJson(body, true), "Ok");
+            //    }
+            //});
         }
 
 
