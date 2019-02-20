@@ -43,13 +43,11 @@ namespace Assets.Scripts.DataBase
 
         public Yarn Put(IBaseConverter<Yarn> formData)
         {
-            throw new NotImplementedException("API Update is needed before this will function Path does not exist");
             return this.Put(formData.GetBaseInterFace());
         }
 
         public Yarn Put(ICreateFormData obj)
         {
-            throw new NotImplementedException("API Update is needed before this will function Path does not exist");
             return JsonUtility.FromJson<Yarn>(base.Put(URLConfig.BASEURL + baseTable, obj));
         }
 
