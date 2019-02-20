@@ -8,7 +8,8 @@ public class ClickManager : MonoBehaviour
 {
     public UIManager uiManager;
     public Button showSnippetContentButton; //There should be a better solution to this, but we'll deal with it later
-    public int clickMode; // 0 = normal selection, 1 = yarn selection
+
+    private int clickMode; // 0 = normal selection, 1 = yarn selection
 
     private Transform lastHit;
     private Transform objectHit;
@@ -29,6 +30,16 @@ public class ClickManager : MonoBehaviour
         {
             yarnClickSelect();
         }
+    }
+
+    public void setClickMode(int mode)
+    {
+        clickMode = mode;
+    }
+
+    public int getClickMode()
+    {
+        return clickMode;
     }
 
     private void normalClickSelect()
@@ -153,14 +164,14 @@ public class ClickManager : MonoBehaviour
                     //If the clicked object is a Snippet
                     if (objectHit.GetComponent<SnippetState>())
                     {
-
-                        uiManager.loadSnippetDetails(objectHit.GetComponent<SnippetState>());
-                        uiManager.showSnippetDetails();
-                    }
-                    else
-                    {
-                        uiManager.clearSnippetDetails();
-                        uiManager.closeSnippetDetails();
+                        if (uiManager.yarnManager.yarnEditor.getFrom() == -1)
+                        {
+                            uiManager.yarnManager.yarnEditor.setFrom(objectHit.GetComponent<SnippetState>().id);
+                        }
+                        else
+                        {
+                            uiManager.yarnManager.yarnEditor.setTo(objectHit.GetComponent<SnippetState>().id);
+                        }
                     }
                 }
             }

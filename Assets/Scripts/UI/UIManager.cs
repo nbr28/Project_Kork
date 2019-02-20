@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
     public GameObject dbgPanel;
     public TextMeshProUGUI dbgLastHitText;
     public TextMeshProUGUI dbgObjectHitText;
+    public TextMeshProUGUI dbgYarnSelFromText;
+    public TextMeshProUGUI dbgYarnSelToText;
+    public TextMeshProUGUI dbgYarnTargetIDText;
 
     //When Snippet UI is up this will be the last
     private SnippetState LastClickedSnippet { get; set; }
@@ -60,7 +63,7 @@ public class UIManager : MonoBehaviour
         snippetEditEnabled = false;
     }
 
-    private void Start()
+    void Update()
     {
 
     }
@@ -263,6 +266,30 @@ public class UIManager : MonoBehaviour
         if (dbgPanel.activeSelf)
         {
             dbgObjectHitText.SetText("objectHit: " + text);
+        }
+    }
+
+    public void setDbgYarnFromText(string text)
+    {
+        if (dbgPanel.activeSelf)
+        {
+            dbgObjectHitText.SetText("yarnSelFrom: " + text);
+        }
+    }
+
+    public void setDbgYarnToText(string text)
+    {
+        if (dbgPanel.activeSelf)
+        {
+            dbgObjectHitText.SetText("yarnSelTo: " + text);
+        }
+    }
+
+    public void setDbgYarnTargetText(string text)
+    {
+        if (dbgPanel.activeSelf)
+        {
+            dbgObjectHitText.SetText("yarnTargetID: " + text);
         }
     }
 
