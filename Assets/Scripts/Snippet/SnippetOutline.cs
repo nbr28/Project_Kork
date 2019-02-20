@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnippetOutline : MonoBehaviour {
+public class SnippetOutline : MonoBehaviour
+{
 
     private Outline outline;
 
@@ -25,5 +26,10 @@ public class SnippetOutline : MonoBehaviour {
     public bool isToggled()
     {
         return outline.enabled;
+    }
+
+    public void setOutlineColor(int r, int g, int b, int a)
+    {
+        outline.OutlineColor = new Color(r, g, b, a);
     }
 }
