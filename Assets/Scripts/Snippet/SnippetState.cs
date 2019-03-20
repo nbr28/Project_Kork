@@ -172,7 +172,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
 
 
-        transform.position = new Vector3(x * 2, y * 2, Math.Abs(z * 2));
+        transform.position = new Vector3(x, y, z);
         titleBar.GetComponent<TextMeshPro>().SetText(title);
         contentPane.GetComponent<TextMeshPro>().SetText(contents);
 

@@ -19,6 +19,18 @@ public class ClickManager : MonoBehaviour
         clickMode = 0;
     }
 
+    public void ToggleDragAndDrop()
+    {
+        if (clickMode != 2)
+        {
+            clickMode = 2;
+        }
+        else
+        {
+            clickMode = 0;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +42,10 @@ public class ClickManager : MonoBehaviour
         {
             yarnClickSelect();
         }
+        else if (clickMode == 2)
+        {
+            dragAndDropMode();
+        }
     }
 
     public void setClickMode(int mode)
@@ -40,6 +56,63 @@ public class ClickManager : MonoBehaviour
     public int getClickMode()
     {
         return clickMode;
+    }
+
+    private void dragAndDropMode()
+    {
+        // Check if the mouse was clicked over a UI element
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            // Generate a ray that travels outward from the mouse click point
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            // If the generated ray hit something, that means it was clicked
+            if (Physics.Raycast(ray, out hit))
+            {
+                //Get the hit object
+                objectHit = hit.transform;
+
+                //Assign last hit object if not assigned yet
+                if (!lastHit)
+                {
+                    lastHit = objectHit;
+                }
+                else if (lastHit != objectHit)
+                {
+                    //If we hit a different object than the last, remove hightlight on last selected snippet
+                    if (lastHit.GetComponent<SnippetState>())
+                    {
+                        lastHit.GetComponent<SnippetOutline>().setToggle(false);
+                        lastHit.GetComponent<dragAndDrop>().Dragging = false;
+                    }
+
+                    //Assign new last hit object
+                    lastHit = objectHit;
+                }
+
+                //If the current hit object is a Snippet
+                if (objectHit.GetComponent<SnippetState>())
+                {
+                    objectHit.GetComponent<SnippetOutline>().setOutlineColor(255f, 246f, 0f, 255f);
+                    objectHit.GetComponent<SnippetOutline>().setToggle(true);
+                    objectHit.GetComponent<dragAndDrop>().Dragging = true;
+                }
+            }
+            else
+            {
+                objectHit = null;
+
+                //If we hit nothing, remove highlight on last selected snippet
+                if (lastHit && lastHit.GetComponent<SnippetState>())
+                {
+                    lastHit.GetComponent<SnippetOutline>().setToggle(false);
+                    lastHit.GetComponent<dragAndDrop>().Dragging = false;
+                }
+            }
+
+            updateDebugUI();
+        }
     }
 
     private void normalClickSelect()
