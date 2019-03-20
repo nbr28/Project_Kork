@@ -37,7 +37,7 @@ public class GalleryManager : MonoBehaviour
         board.Board_Name = item.GetComponentInChildren<Text>().text;
       
         boardHandler.Delete(board);
-        Destroy(item.gameObject);
+        galleryItems.Add(item);
         refreshGallery();
     }
 
@@ -48,6 +48,8 @@ public class GalleryManager : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+
+        galleryItems = new List<GameObject>();
 
         createGallery();
     }
