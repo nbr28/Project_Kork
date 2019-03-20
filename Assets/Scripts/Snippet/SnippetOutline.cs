@@ -5,11 +5,11 @@ using UnityEngine;
 public class SnippetOutline : MonoBehaviour
 {
 
-    private Outline outline;
+    private QuickOutline outline;
 
     void Start()
     {
-        outline = this.transform.Find("Outline Box").GetComponent<Outline>();
+        outline = this.transform.Find("Outline Box").GetComponent<QuickOutline>();
         outline.enabled = false;
     }
 

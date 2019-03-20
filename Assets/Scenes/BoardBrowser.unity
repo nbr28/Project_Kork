@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1112,6 +1112,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5837479643984873428, guid: b8754c69af5476740b853fb82da35b9f,
+        type: 3}
+      propertyPath: createBoardInput
+      value: 
+      objectReference: {fileID: 1741371393}
+    - target: {fileID: 5837479643984873428, guid: b8754c69af5476740b853fb82da35b9f,
+        type: 3}
+      propertyPath: deleteBoardInput
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5837479643984873430, guid: b8754c69af5476740b853fb82da35b9f,
         type: 3}
       propertyPath: m_Name
@@ -1221,16 +1231,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5837479643984873428, guid: b8754c69af5476740b853fb82da35b9f,
-        type: 3}
-      propertyPath: createBoardInput
-      value: 
-      objectReference: {fileID: 1741371393}
-    - target: {fileID: 5837479643984873428, guid: b8754c69af5476740b853fb82da35b9f,
-        type: 3}
-      propertyPath: deleteBoardInput
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8754c69af5476740b853fb82da35b9f, type: 3}

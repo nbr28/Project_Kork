@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6146294712413337054}
   - component: {fileID: 2120520422171806233}
   m_Layer: 5
-  m_Name: Button
+  m_Name: XButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,19 +325,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6146294712413337054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5837479643984873428, guid: b8754c69af5476740b853fb82da35b9f,
-          type: 3}
-        m_MethodName: deleteBoard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &8307350751778079756

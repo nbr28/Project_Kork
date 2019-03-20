@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using Assets.Scripts.DataBase;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +17,12 @@ public class UIManager : MonoBehaviour
     public TMP_InputField tagSearchField;
     public TMP_Dropdown yarnSelectionDropdown;
     public Button applyFiltersButton;
+
+    //Panels
+    public RectTransform searchPanel;
+    public RectTransform contentPanel;
+    public Button toggleSearchButton;
+    public Button toggleContentButton;
 
     //Snippet UI
     public EasyTween dimmerPanel;
@@ -46,6 +54,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI dbgYarnSelToText;
     public TextMeshProUGUI dbgYarnTargetIDText;
 
+    //Toggle Flags for UI panels
+    private bool searchTog;
+    private bool contentTog;
+
     //When Snippet UI is up this will be the last
     private SnippetState LastClickedSnippet { get; set; }
 
@@ -67,6 +79,10 @@ public class UIManager : MonoBehaviour
         this._YarnHandler = new YarnHandler();
         this._YarnLineHandler = new YarnLineHandler();
         //dbgPanel.SetActive(false);
+
+        searchTog = false;
+        contentTog = false;
+
         dimmerPanel.gameObject.SetActive(false);
         snippetDetailsPanel.gameObject.SetActive(false);
         disableSnippetEditing();
@@ -232,11 +248,6 @@ public class UIManager : MonoBehaviour
         yarnManager.yarnEditor.enableYarnSelection();
     }
 
-    public void addNewYarn()
-    {
-
-    }
-
     public void clearSnippetDetails()
     {
         setSnippetTitleText("");
@@ -276,6 +287,13 @@ public class UIManager : MonoBehaviour
             enableSnippetEditing();
             snippetEditEnabled = true;
         }
+    }
+
+    public void deleteLastClickedSnippet()
+    {
+        closeSnippetDetails();
+        snippetManager.deleteSnippet(LastClickedSnippet);
+        Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
     }
 
     public void saveLocalSnippetChanges()
@@ -362,4 +380,41 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void toggleSearchPanel()
+    {
+        if (!searchTog)
+        {
+            searchPanel.DOAnchorPosX(-7.0f, 0.25f);
+            searchTog = true;
+        }
+        else
+        {
+            searchPanel.DOAnchorPosX(280.0f, 0.25f);
+            searchTog = false;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == toggleSearchButton)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    public void toggleContentPanel()
+    {
+        if (!contentTog)
+        {
+            contentPanel.DOAnchorPosX(-7.0f, 0.25f);
+            contentTog = true;
+        }
+        else
+        {
+            contentPanel.DOAnchorPosX(280.0f, 0.25f);
+            contentTog = false;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == toggleContentButton)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
 }

@@ -168,6 +168,12 @@ public class SnippetManager : MonoBehaviour
         currentYarnFilter = yarnQueryID;
     }
 
+    public void deleteSnippet(SnippetState target)
+    {
+        SnippetHandler snippetHandler = new SnippetHandler();
+        snippetHandler.Delete(target.GetBaseInterFace());
+    }
+
     //DEPRECATED!!
     //Loads JSON data from DB file into application
     //Returns whether or not data was successfully loaded
