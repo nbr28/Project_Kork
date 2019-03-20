@@ -180,11 +180,11 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
             if ( !snippetManager.snippetObjectDict[ylr.FromID].activeSelf ||
                     !snippetManager.snippetObjectDict[ylr.ToID].activeSelf)
             {
-                ylr.transform.parent.gameObject.SetActive(false);
+                ylr.gameObject.SetActive(false);
             }
             else
             {
-                ylr.transform.parent.gameObject.SetActive(true);
+                ylr.gameObject.SetActive(true);
             }
         }
     }
@@ -193,7 +193,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     {
         foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            ylr.transform.parent.gameObject.SetActive(false);
+            ylr.gameObject.SetActive(false);
         }
     }
 
@@ -201,7 +201,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     {
         foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            ylr.transform.parent.gameObject.SetActive(true);
+            ylr.gameObject.SetActive(true);
         }
     }
 
@@ -218,11 +218,11 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
             {
                 if (ylr && ylr.YarnID == query)
                 {
-                    ylr.transform.parent.gameObject.SetActive(true);
+                    ylr.gameObject.SetActive(true);
                 }
                 else
                 {
-                    ylr.transform.parent.gameObject.SetActive(false);
+                    ylr.gameObject.SetActive(false);
                 }
             }
         }
