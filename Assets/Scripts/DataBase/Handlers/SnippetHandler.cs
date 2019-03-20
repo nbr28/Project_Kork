@@ -72,7 +72,10 @@ namespace Assets.Scripts.DataBase
         }
 
 
-
+        public int Delete(ICreateFormData obj)
+        {
+            return base.Delete(URLConfig.BASEURL + baseTable, obj);
+        }
 
 
         ///// <summary>
