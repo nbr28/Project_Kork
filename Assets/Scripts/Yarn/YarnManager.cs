@@ -34,6 +34,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     }
 
     //dictonary of all the yarn lines used to build menues
+    //Yarn_Name and Yarn_Id
     public Dictionary<int, string> allYarnLines
     {
         get
