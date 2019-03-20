@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.DataBase.Handlers
 {
-    class BoardHandler:GenericCRUD<Board>
+    class BoardHandler : GenericCRUD<Board>
     {
         const string baseTable = "board";
 
@@ -29,7 +29,7 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <returns>the array</returns>
         public Board[] GetAllBoards()
         {
-            return JsonHelper.getJsonArray<Board>(base.Get(URLConfig.BASEURL + baseTable +"s"));
+            return JsonHelper.getJsonArray<Board>(base.Get(URLConfig.BASEURL + baseTable + "s"));
         }
 
         /// <summary>
@@ -71,6 +71,11 @@ namespace Assets.Scripts.DataBase.Handlers
         public Board Put(ICreateFormData obj)
         {
             return JsonUtility.FromJson<Board>(base.Put(URLConfig.BASEURL + baseTable, obj));
+        }
+
+        public int Delete(ICreateFormData obj)
+        {
+            return base.Delete(URLConfig.BASEURL + baseTable, obj);
         }
     }
 }
