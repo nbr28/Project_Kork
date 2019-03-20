@@ -199,6 +199,24 @@ namespace Assets.Scripts.DataBase
             formData.Add(new MultipartFormDataSection("Yarn_Id", this.Yarn_Id.ToString()));
             return formData;
         }
+
+        public override bool Equals(object obj)
+        {
+            var line = obj as YarnLine;
+            return line != null &&
+                  ( Snippet_Id_To == line.Snippet_Id_To && Snippet_Id_From == line.Snippet_Id_From ||
+                    Snippet_Id_To == line.Snippet_Id_From && Snippet_Id_From == line.Snippet_Id_To)
+                   &&
+                   Yarn_Id == line.Yarn_Id;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1258304170;
+            hashCode = hashCode * -1521134295 + Snippet_Id_To.GetHashCode()+ Snippet_Id_From.GetHashCode();
+            hashCode = hashCode * -1521134295 + Yarn_Id.GetHashCode();
+            return hashCode;
+        }
     }
 
     public class YarnLineUpdate : YarnLine

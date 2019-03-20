@@ -213,6 +213,7 @@ public class UIManager : MonoBehaviour
             yarnManager.yarnEditor.setID(yarnIds[snippetYarnDropdown.value]);
             yarnManager.yarnEditor.setFrom(LastClickedSnippet.id);
             yarnManager.yarnEditor.lockFrom = true;
+            yarnManager.yarnEditor.Mode = YarnEditor.mode.ADD;
         }
 
         closeSnippetDetails();
@@ -226,6 +227,7 @@ public class UIManager : MonoBehaviour
             yarnManager.yarnEditor.setID(yarnIds[snippetYarnDropdown.value]);
             yarnManager.yarnEditor.setFrom(LastClickedSnippet.id);
             yarnManager.yarnEditor.lockFrom = true;
+            yarnManager.yarnEditor.Mode = YarnEditor.mode.DELETE;
         }
 
         closeSnippetDetails();

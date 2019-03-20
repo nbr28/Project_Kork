@@ -197,6 +197,15 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         }
     }
 
+    public void yarnAction()
+    {
+        if (yarnEditor.Mode == YarnEditor.mode.ADD)
+            saveYarn();
+        else if (yarnEditor.Mode == YarnEditor.mode.DELETE)
+            deleteYarnLine();
+
+    }
+
     public void saveYarn()
     {
         YarnHandler yarnHandler = new YarnHandler();
