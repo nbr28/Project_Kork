@@ -238,8 +238,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
         this.YarnList.Add(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
+        //Code to remove old line goes here / update view
 
-        init();
     }
 
     public void deleteYarnLine()
@@ -248,7 +248,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Delete(yarnEditor.selection);
         YarnList.Remove(yarnEditor.selection);
-        init();
+        //Code to remove old line goes here / update view
+
     }
 
     public void Save()
