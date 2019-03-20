@@ -11,7 +11,7 @@ public class YarnEditor : MonoBehaviour
     public bool lockTo;
     public bool lockID;
 
-    private YarnLine selection;
+    public YarnLine selection;
 
     private void Awake()
     {

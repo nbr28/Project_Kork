@@ -219,6 +219,19 @@ public class UIManager : MonoBehaviour
         yarnManager.yarnEditor.enableYarnSelection();
     }
 
+    public void removeFromExistingYarn()
+    {
+        if (yarnIds != null)
+        {
+            yarnManager.yarnEditor.setID(yarnIds[snippetYarnDropdown.value]);
+            yarnManager.yarnEditor.setFrom(LastClickedSnippet.id);
+            yarnManager.yarnEditor.lockFrom = true;
+        }
+
+        closeSnippetDetails();
+        yarnManager.yarnEditor.enableYarnSelection();
+    }
+
     public void addNewYarn()
     {
 

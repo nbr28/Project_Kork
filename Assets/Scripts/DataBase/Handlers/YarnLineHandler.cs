@@ -69,6 +69,11 @@ namespace Assets.Scripts.DataBase
             return JsonUtility.FromJson<YarnLineUpdate>(base.Put(URLConfig.BASEURL + baseTable, obj));
         }
 
+        public int Delete(ICreateFormData obj)
+        {
+            return base.Delete(URLConfig.BASEURL + baseTable, obj);
+        }
+
 
         /// <summary>
         /// POST request to create a new yarn line

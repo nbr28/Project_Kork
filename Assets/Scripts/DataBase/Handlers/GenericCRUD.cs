@@ -71,7 +71,7 @@ namespace Assets.Scripts.DataBase.Handlers
             www.method = "DELETE";
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
-            return Int32.Parse(www.downloadHandler.text);
+            return 1;//TODO: Update api to return number of rows deleted //Int32.Parse(www.downloadHandler.text);
         }
     }
 }

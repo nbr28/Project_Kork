@@ -222,6 +222,15 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         init();
     }
 
+    public void deleteYarnLine()
+    {
+        //TODO: Remove this line and add save bellow creating a save state
+        YarnLineHandler yarnLineHandler = new YarnLineHandler();
+        yarnLineHandler.Delete(yarnEditor.selection);
+        YarnList.Remove(yarnEditor.selection);
+        init();
+    }
+
     public void Save()
     {
         throw new System.NotImplementedException();
