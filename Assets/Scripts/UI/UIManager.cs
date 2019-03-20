@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public TMP_InputField tagSearchField;
     public TMP_Dropdown yarnSelectionDropdown;
     public Button applyFiltersButton;
+    public Button toggleDNDButton;
 
     //Panels
     public RectTransform searchPanel;
@@ -386,16 +387,17 @@ public class UIManager : MonoBehaviour
         {
             searchPanel.DOAnchorPosX(-7.0f, 0.25f);
             searchTog = true;
+
+            contentPanel.gameObject.SetActive(false);
+            toggleDNDButton.gameObject.SetActive(false);
         }
         else
         {
             searchPanel.DOAnchorPosX(280.0f, 0.25f);
             searchTog = false;
-        }
 
-        if (EventSystem.current.currentSelectedGameObject == toggleSearchButton)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
+            contentPanel.gameObject.SetActive(true);
+            toggleDNDButton.gameObject.SetActive(true);
         }
     }
 
@@ -405,16 +407,17 @@ public class UIManager : MonoBehaviour
         {
             contentPanel.DOAnchorPosX(-7.0f, 0.25f);
             contentTog = true;
+
+            searchPanel.gameObject.SetActive(false);
+            toggleDNDButton.gameObject.SetActive(false);
         }
         else
         {
             contentPanel.DOAnchorPosX(280.0f, 0.25f);
             contentTog = false;
-        }
 
-        if (EventSystem.current.currentSelectedGameObject == toggleContentButton)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
+            searchPanel.gameObject.SetActive(true);
+            toggleDNDButton.gameObject.SetActive(true);
         }
     }
 }

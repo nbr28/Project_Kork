@@ -24,10 +24,12 @@ public class ClickManager : MonoBehaviour
         if (clickMode != 2)
         {
             clickMode = 2;
+            uiManager.toggleDNDButton.GetComponent<Image>().color = Color.red;
         }
         else
         {
             clickMode = 0;
+            uiManager.toggleDNDButton.GetComponent<Image>().color = Color.white;
         }
     }
 
