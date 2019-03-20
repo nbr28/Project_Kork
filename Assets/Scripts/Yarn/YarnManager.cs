@@ -100,23 +100,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     {
         createYarnLines();
 
-        YarnHandler yarnHandler = new YarnHandler();
-
-        //// Populate the unique name and unique id lists
-        //foreach (GameObject y in yarnLineObjectList)
-        //{
-        //    // Get the renderer component
-        //    YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-        //    int currentYarnID = ylr.YarnID;
-
-        //    // Add yarn id to list, if it isn't already in
-        //    if (!UniqueYarnIDList.Contains(ylr.YarnID))
-        //    {
-        //        UniqueYarnIDList.Add(ylr.YarnID);
-        //        UniqueYarnNameList.Add(yarnHandler.GetRequestSingleYarnById(ylr.YarnID).Yarn_Name);//request the yarn names from the db
-        //    }
-
-        //}
+        //populate the table
         string[] temp = new string[allYarnLines.Count];
         allYarnLines.Values.CopyTo(temp, 0);
         uiManager.setYarnSelectionDropDown(new List<string>(temp));
@@ -230,8 +214,10 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
             newYarn.Yarn_Id = yarnEditor.getID();
         }
 
+        //TODO: Remove this line and add save bellow creating a save state
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
+        this.YarnList.Add(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
 
         init();
     }
