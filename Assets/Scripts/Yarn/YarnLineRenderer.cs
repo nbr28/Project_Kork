@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class YarnLineRenderer : MonoBehaviour {
 
+    private LineRenderer lineRenderer;
+
     public Color c1 = Color.yellow; // Gradient color 1
     public Color c2 = Color.red;    // Gradient color 2
 
@@ -93,7 +95,7 @@ public class YarnLineRenderer : MonoBehaviour {
     public void createLineRenderer()
     {
         // Instantiate a new LineRenderer object and add it as a component to this GameObject
-        LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
 
         // Set the line graphic's material
         lineRenderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
@@ -118,7 +120,7 @@ public class YarnLineRenderer : MonoBehaviour {
     public void refreshYarnLines()
     {
         // Get the lineRenderer component we added during initialization
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
 
         // Create an array of Vector3 points using the endpoint properties
         Vector3[] linePoints = { a, b };
@@ -128,6 +130,16 @@ public class YarnLineRenderer : MonoBehaviour {
 
         // Set the Vector3 points in linePoints array as the line vertices
         lineRenderer.SetPositions(linePoints);
+
+        float alpha = 0.5f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(c1, 0.0f), new GradientColorKey(c2, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+            );
+
+        // Set the gradient as the LineRenderer's color
+        lineRenderer.colorGradient = gradient;
     }
 
     // Given a snippet's ID, returns true/false if the snippet is either of the yarn line's endpoints

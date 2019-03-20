@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class YarnManager : MonoBehaviour, ISaveLoadInterface
 {
+    private Color pickedColor;
+
     private List<YarnLine> yarnList;
 
     public SnippetManager snippetManager;   // Reference to SnippetManager (be sure to set through Unity)
@@ -52,6 +54,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     // Use this for initialization
     void Start()
     {
+        pickedColor = Color.yellow;
         init();
     }
 
@@ -276,5 +279,21 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     public void Delete()
     {
         throw new System.NotImplementedException();
+    }
+
+    void OnSetColor(Color color)
+    {
+        pickedColor = color;
+        
+        foreach(YarnLineRenderer ylr in yarnLineObjectList)
+        {
+            ylr.c1 = color;
+            ylr.c2 = color;
+        }
+    }
+
+    void OnGetColor(ColorPicker picker)
+    {
+        picker.NotifyColor(pickedColor);
     }
 }
