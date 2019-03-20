@@ -145,7 +145,6 @@ public class UIManager : MonoBehaviour
         {
             dimmerPanel.OpenCloseObjectAnimation();
             snippetDetailsPanel.OpenCloseObjectAnimation();
-            applyFilters();
         }
     }
 
