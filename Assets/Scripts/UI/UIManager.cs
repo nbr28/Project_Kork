@@ -306,6 +306,7 @@ public class UIManager : MonoBehaviour
 
     public void setYarnSelectionDropDown(List<string> yarnList)
     {
+        yarnSelectionDropdown.ClearOptions();
         yarnSelectionDropdown.AddOptions(yarnList);
     }
 
