@@ -6,8 +6,7 @@ using TMPro;
 using UnityEngine.Networking;
 using Assets.Scripts.DataBase;
 using System;
-
-
+using System.Linq;
 
 public class SnippetManager : MonoBehaviour
 {
@@ -79,7 +78,7 @@ public class SnippetManager : MonoBehaviour
     public void filterByTagAndYarn(string tagQuery, int yarnQuery)
     {
         //Get the actual yarnID from the dropdown seletion value
-        int yarnQueryID = yarnManager.UniqueYarnIDList[yarnQuery];
+        int yarnQueryID = yarnManager.allYarnLines.Keys.ElementAt<int>(yarnQuery);
 
         //If both filters exist
         if (tagQuery != "" && yarnQueryID >= 0)

@@ -6,60 +6,46 @@ using UnityEngine;
 
 public class YarnManager : MonoBehaviour, ISaveLoadInterface
 {
+    private List<YarnLine> yarnList;
 
     public SnippetManager snippetManager;   // Reference to SnippetManager (be sure to set through Unity)
     public UIManager uiManager;
-
     public YarnEditor yarnEditor;
-
     public List<GameObject> yarnLineObjectList;         // List of references to YarnLineRenderer objects
-    private List<YarnLine> yarnList
+
+    // List of YarnLine objects, which will be populated with db query results upon iniitlization
+    public List<YarnLine> YarnList//self building list of yarn lines
     {
 
         get
         {
-            YarnLineHandler yarnLineHandler = new YarnLineHandler();
-            return new List<YarnLine>(yarnLineHandler.GetRequestAllYarnLines());
+            if(yarnList ==null)
+            {
+                YarnLineHandler yarnLineHandler = new YarnLineHandler();
+                yarnList = new List<YarnLine>(yarnLineHandler.GetRequestAllYarnLines());
+            }
+         
+            return yarnList;
         }
         set
         {
             yarnList = value;
         }
-    }                    // List of YarnLine objects, which will be populated with db query results
-    //TODO: @Jerry from @Natan why do we have both a list of yarn lines and another list of each component?
-    private List<int> uniqueYarnIDList;                 // List of unique yarn IDs
-    private List<string> uniqueYarnNameList;            // List of unique yarn names
+    }
 
-    public List<int> UniqueYarnIDList
+    //dictonary of all the yarn lines used to build menues
+    public Dictionary<int, string> allYarnLines
     {
         get
         {
-            return uniqueYarnIDList;
+            Dictionary<int, string>  tempDic = new Dictionary<int,string>();
+            YarnHandler yarnHandler = new YarnHandler();
+            foreach (Yarn yarn in yarnHandler.GetRequestAllYarn())
+            {
+                tempDic.Add(yarn.Yarn_Id, yarn.Yarn_Name);
+            }
+            return tempDic;
         }
-
-        private set
-        {
-            uniqueYarnIDList = value;
-        }
-    }
-
-    public List<string> UniqueYarnNameList
-    {
-        get
-        {
-            return uniqueYarnNameList;
-        }
-
-        private set
-        {
-            uniqueYarnNameList = value;
-        }
-    }
-
-    //private Dictionary<int, string> uniqueYarnIDList;   // Dictionary of unique yarns, with their ids as the key and names as the value
-
-    void Awake()
-    {
     }
 
     // Use this for initialization
@@ -72,7 +58,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     void createYarnLines()
     {
         // For each yarnLine, we attempt to create a DrawLines object to render the graphic
-        foreach (YarnLine yarnLine in yarnList)
+        foreach (YarnLine yarnLine in YarnList)
         {
             // Store the endpoint IDs from current yarnLine
             int fromID = yarnLine.Snippet_Id_From;
@@ -114,31 +100,26 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     {
         createYarnLines();
 
-        UniqueYarnIDList = new List<int>();
-        UniqueYarnNameList = new List<string>();
-
-        UniqueYarnIDList.Add(-1);
-        UniqueYarnNameList.Add("---");
-
         YarnHandler yarnHandler = new YarnHandler();
 
-        // Populate the unique name and unique id lists
-        foreach (GameObject y in yarnLineObjectList)
-        {
-            // Get the renderer component
-            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-            int currentYarnID = ylr.YarnID;
+        //// Populate the unique name and unique id lists
+        //foreach (GameObject y in yarnLineObjectList)
+        //{
+        //    // Get the renderer component
+        //    YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
+        //    int currentYarnID = ylr.YarnID;
 
-            // Add yarn id to list, if it isn't already in
-            if (!UniqueYarnIDList.Contains(ylr.YarnID))
-            {
-                UniqueYarnIDList.Add(ylr.YarnID);
-                UniqueYarnNameList.Add(yarnHandler.GetRequestSingleYarnById(ylr.YarnID).Yarn_Name);//request the yarn names from the db
-            }
+        //    // Add yarn id to list, if it isn't already in
+        //    if (!UniqueYarnIDList.Contains(ylr.YarnID))
+        //    {
+        //        UniqueYarnIDList.Add(ylr.YarnID);
+        //        UniqueYarnNameList.Add(yarnHandler.GetRequestSingleYarnById(ylr.YarnID).Yarn_Name);//request the yarn names from the db
+        //    }
 
-        }
-
-        uiManager.setYarnSelectionDropDown(UniqueYarnNameList);
+        //}
+        string[] temp = new string[allYarnLines.Count];
+        allYarnLines.Values.CopyTo(temp, 0);
+        uiManager.setYarnSelectionDropDown(new List<string>(temp));
     }
 
     // Given a yarn ID, returns a list of all snippet IDs involved
