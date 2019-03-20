@@ -71,7 +71,7 @@ public class GalleryManager : MonoBehaviour
             instantiatedBoard.name = board.Board_Id.ToString();
             instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
                 
-            instantiatedBoard.transform.parent = GameObject.Find("Canvas").transform;
+            instantiatedBoard.transform.SetParent(GameObject.Find("Canvas").transform);
             // TODO: make it into a nice grid -> check GridLayout
             instantiatedBoard.transform.localPosition = new Vector3(-450 + i * 180, 0, 0);
             i++;
