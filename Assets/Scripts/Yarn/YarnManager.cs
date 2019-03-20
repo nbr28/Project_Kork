@@ -4,7 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YarnManager : MonoBehaviour, ISaveLoadInterface {
+public class YarnManager : MonoBehaviour, ISaveLoadInterface
+{
 
     public SnippetManager snippetManager;   // Reference to SnippetManager (be sure to set through Unity)
     public UIManager uiManager;
@@ -12,7 +13,19 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     public YarnEditor yarnEditor;
 
     public List<GameObject> yarnLineObjectList;         // List of references to YarnLineRenderer objects
-    private List<YarnLine> yarnList;                    // List of YarnLine objects, which will be populated with db query results
+    private List<YarnLine> yarnList
+    {
+
+        get
+        {
+            YarnLineHandler yarnLineHandler = new YarnLineHandler();
+            return new List<YarnLine>(yarnLineHandler.GetRequestAllYarnLines());
+        }
+        set
+        {
+            yarnList = value;
+        }
+    }                    // List of YarnLine objects, which will be populated with db query results
     //TODO: @Jerry from @Natan why do we have both a list of yarn lines and another list of each component?
     private List<int> uniqueYarnIDList;                 // List of unique yarn IDs
     private List<string> uniqueYarnNameList;            // List of unique yarn names
@@ -47,20 +60,12 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
 
     void Awake()
     {
-        loadYarnLineData(); // yarnList will be populated with YarnLine objects from DB
     }
 
     // Use this for initialization
-    void Start () {
-        init();
-    }
-
-    // Utilizes YarnLineHandler class to perform a get call to the database and retrieve a list of YarnLine objects
-    void loadYarnLineData()
+    void Start()
     {
-        YarnLineHandler yarnLineHandler = new YarnLineHandler();
-
-        this.yarnList = new List<YarnLine>(yarnLineHandler.GetRequestAllYarnLines());
+        init();
     }
 
     // Instantiates a list of DrawLines objects, which are the renderers for the actual yarn line graphics
@@ -74,8 +79,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
             int toID = yarnLine.Snippet_Id_To;
 
             // Check if both of the endpoints exist in the snippet object dictionary in SnippetManager
-            if ( snippetManager.snippetObjectDict.ContainsKey(fromID) &&
-                    snippetManager.snippetObjectDict.ContainsKey(toID) )
+            if (snippetManager.snippetObjectDict.ContainsKey(fromID) &&
+                    snippetManager.snippetObjectDict.ContainsKey(toID))
             {
                 // Create a new GameObject to hold the DrawLines as component
                 GameObject lineObject = new GameObject();
@@ -174,7 +179,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         {
             YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
 
-            if ( !snippetManager.snippetObjectDict[ylr.FromID].activeSelf ||
+            if (!snippetManager.snippetObjectDict[ylr.FromID].activeSelf ||
                     !snippetManager.snippetObjectDict[ylr.ToID].activeSelf)
             {
                 y.SetActive(false);

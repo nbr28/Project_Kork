@@ -39,7 +39,7 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class Board : ICreateFormData
     {
-        public int Board_Id;
+        public int Board_Id=-1;
         public string Board_Name;
 
         public List<IMultipartFormSection> CreateForm()
@@ -54,7 +54,7 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class Tag : ICreateFormData
     {
-        public int Snippet_Id;
+        public int Snippet_Id=-1;
         public string Tag_Name;
 
         public List<IMultipartFormSection> CreateForm()
@@ -69,9 +69,9 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class Snippet : ICreateFormData
     {
-        public int Snippet_Id;
+        public int Snippet_Id=-1;
         public string Path_To_Data;
-        public int Board_Id;
+        public int Board_Id=-1;
 
         public Snippet(int snippet_Id, string path_To_Data)
         {
@@ -104,8 +104,8 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class Connection : ICreateFormData
     {
-        public int Snippet_Id;
-        public int Association_Id;
+        public int Snippet_Id=-1;
+        public int Association_Id=-1;
         public string Connection_Data;
 
         public Connection(int snippet_Id, int association_Id, string data)
@@ -128,7 +128,7 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class Association : ICreateFormData
     {
-        public int Association_Id;
+        public int Association_Id=-1;
         public AssociationsName.DataType Association_Data_Type;
         public string Association_Name;
 
@@ -158,7 +158,7 @@ namespace Assets.Scripts.DataBase
     public class Yarn : ICreateFormData
     {
         public string Yarn_Name;
-        public int Yarn_Id;
+        public int Yarn_Id=-1;
 
         public List<IMultipartFormSection> CreateForm()
         {
@@ -225,10 +225,10 @@ namespace Assets.Scripts.DataBase
     [System.Serializable]
     public class AssociationView : ICreateFormData
     {
-        public int Association_Id;
+        public int Association_Id=-1;
         public AssociationsName.DataType Association_Data_Type;
         public string Association_Name;
-        public int Snippet_Id;
+        public int Snippet_Id=-1;
         public string Connection_Data;
 
         public List<IMultipartFormSection> CreateForm()
