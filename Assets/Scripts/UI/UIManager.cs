@@ -403,13 +403,13 @@ public class UIManager : MonoBehaviour
     {
         if (!contentTog)
         {
-            searchPanel.DOAnchorPosX(-7.0f, 0.25f);
-            searchTog = true;
+            contentPanel.DOAnchorPosX(-7.0f, 0.25f);
+            contentTog = true;
         }
         else
         {
-            searchPanel.DOAnchorPosX(280.0f, 0.25f);
-            searchTog = false;
+            contentPanel.DOAnchorPosX(280.0f, 0.25f);
+            contentTog = false;
         }
 
         if (EventSystem.current.currentSelectedGameObject == toggleContentButton)

@@ -1437,7 +1437,7 @@ MonoBehaviour:
   searchPanel: {fileID: 559651072}
   contentPanel: {fileID: 1636837479}
   toggleSearchButton: {fileID: 920224900}
-  toggleContentButton: {fileID: 0}
+  toggleContentButton: {fileID: 1073238460}
   dimmerPanel: {fileID: 1418843066}
   snippetDetailsPanel: {fileID: 465768705}
   snippetTitleText: {fileID: 948476182}
@@ -5441,7 +5441,6 @@ RectTransform:
   - {fileID: 1157043297}
   - {fileID: 1418843062}
   - {fileID: 465768701}
-  - {fileID: 1073238459}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7272,7 +7271,7 @@ GameObject:
   - component: {fileID: 1073238461}
   - component: {fileID: 1073238460}
   m_Layer: 5
-  m_Name: 'Toggle Search Panel Button '
+  m_Name: 'Toggle Content Panel Button '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7290,12 +7289,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1400548161}
-  m_Father: {fileID: 756201454}
-  m_RootOrder: 5
+  m_Father: {fileID: 1636837479}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 913, y: -73}
+  m_AnchoredPosition: {x: -58, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1073238460
@@ -7339,7 +7338,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 220671117}
-        m_MethodName: toggleSearchPanel
+        m_MethodName: toggleContentPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7371,7 +7370,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ec0fd2e67d2428a4a95653949530748b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: feedb38b9d13c944fb064f8e225e1121, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9721,11 +9720,11 @@ RectTransform:
   m_Father: {fileID: 1073238459}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1400548162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10892,7 +10891,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1073238459}
   m_Father: {fileID: 756201454}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
