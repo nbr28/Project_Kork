@@ -11,7 +11,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
 
     public YarnEditor yarnEditor;
 
-    public List<GameObject> yarnLineObjectList;         // List of references to YarnLineRenderer objects
+    public List<YarnLineRenderer> yarnLineObjectList;         // List of references to YarnLineRenderer objects
     private List<YarnLine> yarnList;                    // List of YarnLine objects, which will be populated with db query results
     //TODO: @Jerry from @Natan why do we have both a list of yarn lines and another list of each component?
     private List<int> uniqueYarnIDList;                 // List of unique yarn IDs
@@ -53,6 +53,15 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     // Use this for initialization
     void Start () {
         init();
+    }
+
+    void Update()
+    {
+        for (int i = 0; i < yarnLineObjectList.Count; i++)
+        {
+            yarnLineObjectList[i].A = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_From].gameObject.transform.position;
+            yarnLineObjectList[i].B = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_To].gameObject.transform.position;
+        }
     }
 
     // Utilizes YarnLineHandler class to perform a get call to the database and retrieve a list of YarnLine objects
@@ -99,7 +108,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
                     lineObject.name = "YarnLine ID: " + instYLR.YarnID;
 
                     // Add reference for newly instantiated object to list
-                    yarnLineObjectList.Add(lineObject);
+                    yarnLineObjectList.Add(instYLR);
                 }
             }
         }
@@ -118,10 +127,9 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         YarnHandler yarnHandler = new YarnHandler();
 
         // Populate the unique name and unique id lists
-        foreach (GameObject y in yarnLineObjectList)
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
             // Get the renderer component
-            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
             int currentYarnID = ylr.YarnID;
 
             // Add yarn id to list, if it isn't already in
@@ -142,11 +150,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         List<int> ret = new List<int>();
 
         // Look through array of yarn line objects
-        foreach (GameObject y in yarnLineObjectList)
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            // Get the renderer component
-            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-
             // Check if the yarn ID matches specified ID
             if (ylr.YarnID == yarnID)
             {
@@ -170,35 +175,33 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
     // Automatically hides yarns if either of the attached snippets are inactive, and shows yarns if both snippets are active
     public void adaptiveHide()
     {
-        foreach (GameObject y in yarnLineObjectList)
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-
             if ( !snippetManager.snippetObjectDict[ylr.FromID].activeSelf ||
                     !snippetManager.snippetObjectDict[ylr.ToID].activeSelf)
             {
-                y.SetActive(false);
+                ylr.transform.parent.gameObject.SetActive(false);
             }
             else
             {
-                y.SetActive(true);
+                ylr.transform.parent.gameObject.SetActive(true);
             }
         }
     }
 
     public void hideAll()
     {
-        foreach (GameObject y in yarnLineObjectList)
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            y.SetActive(false);
+            ylr.transform.parent.gameObject.SetActive(false);
         }
     }
 
     public void showAll()
     {
-        foreach (GameObject y in yarnLineObjectList)
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
         {
-            y.SetActive(true);
+            ylr.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -211,17 +214,15 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface {
         }
         else
         {
-            foreach (GameObject y in yarnLineObjectList)
+            foreach (YarnLineRenderer ylr in yarnLineObjectList)
             {
-                YarnLineRenderer ylr = y.GetComponent<YarnLineRenderer>();
-
                 if (ylr && ylr.YarnID == query)
                 {
-                    y.SetActive(true);
+                    ylr.transform.parent.gameObject.SetActive(true);
                 }
                 else
                 {
-                    y.SetActive(false);
+                    ylr.transform.parent.gameObject.SetActive(false);
                 }
             }
         }
