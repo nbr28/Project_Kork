@@ -67,11 +67,7 @@ public class GalleryManager : MonoBehaviour
         foreach (Board board in boardArr)
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
-            GameObject lineObject = new GameObject();
-            lineObject.AddComponent<YarnLineRenderer>();
-
-            // Get the YarnLineRenderer component we just added
-            YarnLineRenderer instYLR = lineObject.GetComponent<YarnLineRenderer>();
+          
             instantiatedBoard.name = board.Board_Name.ToString();
             instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
 
