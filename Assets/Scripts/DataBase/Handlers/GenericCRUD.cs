@@ -67,8 +67,9 @@ namespace Assets.Scripts.DataBase.Handlers
         /// <returns></returns>
         public virtual int Delete(string url, ICreateFormData obj)
         {
-            UnityWebRequest www = UnityWebRequest.Post(url, obj.CreateForm());
-            www.method = "DELETE";
+            UnityWebRequest www = UnityWebRequest.Put(url, JsonUtility.ToJson(obj));
+            www.method = UnityWebRequest.kHttpVerbDELETE;
+            www.SetRequestHeader("Content-Type", "application/json");
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
             return 1;//TODO: Update api to return number of rows deleted //Int32.Parse(www.downloadHandler.text);
