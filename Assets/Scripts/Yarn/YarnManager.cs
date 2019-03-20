@@ -215,6 +215,15 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         else if (yarnEditor.Mode == YarnEditor.mode.DELETE)
             deleteYarnLine();
 
+            //Remove all yarn line renderers and objects and recreate them
+            foreach (YarnLineRenderer ylr in yarnLineObjectList)
+            {
+                Destroy(ylr.gameObject);
+            }
+
+        yarnLineObjectList.Clear();
+        init();
+        adaptiveHide();
     }
 
     public void saveYarn()
@@ -238,7 +247,6 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
         this.YarnList.Add(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
-        //Code to remove old line goes here / update view
 
     }
 
@@ -248,8 +256,6 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         YarnLineHandler yarnLineHandler = new YarnLineHandler();
         yarnLineHandler.Delete(yarnEditor.selection);
         YarnList.Remove(yarnEditor.selection);
-        //Code to remove old line goes here / update view
-
     }
 
     public void Save()

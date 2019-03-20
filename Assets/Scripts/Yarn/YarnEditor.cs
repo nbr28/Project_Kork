@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class YarnEditor : MonoBehaviour
 {
-    public enum mode { DELETE,ADD };
+    public enum mode { ADD, DELETE };
     public ClickManager clickManager;
 
     public mode Mode;
