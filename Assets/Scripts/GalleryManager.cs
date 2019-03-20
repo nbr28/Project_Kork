@@ -42,6 +42,7 @@ public class GalleryManager : MonoBehaviour
         GameObject item = GameObject.Find(EventSystem.current.currentSelectedGameObject.gameObject.transform.parent.name);
         board.Board_Name = item.GetComponentInChildren<Text>().text;
         boardHandler.Delete(board);
+
         refreshGallery();
     }
 
@@ -56,6 +57,7 @@ public class GalleryManager : MonoBehaviour
         }
 
         galleryItems.Clear();
+
         createGallery();
     }
 
