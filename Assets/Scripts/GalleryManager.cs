@@ -15,6 +15,12 @@ public class GalleryManager : MonoBehaviour
 
     private List<GameObject> galleryItems;
 
+    private void Awake()
+    {
+        galleryItems = new List<GameObject>();
+        createGallery();
+    }
+
     public void createNewBoard()
     {
         BoardHandler boardHandler = new BoardHandler();
@@ -35,20 +41,21 @@ public class GalleryManager : MonoBehaviour
 
         GameObject item = GameObject.Find(EventSystem.current.currentSelectedGameObject.gameObject.transform.parent.name);
         board.Board_Name = item.GetComponentInChildren<Text>().text;
-      
         boardHandler.Delete(board);
-        Destroy(item.gameObject);
         refreshGallery();
     }
 
     private void refreshGallery()
     {
-        //Remove all boards and recreate them
-        foreach (GameObject item in galleryItems)
+        if (galleryItems != null)
         {
-            Destroy(item.gameObject);
+            foreach (GameObject item in galleryItems)
+            {
+                Destroy(item.gameObject);
+            }
         }
 
+        galleryItems.Clear();
         createGallery();
     }
 
@@ -68,6 +75,8 @@ public class GalleryManager : MonoBehaviour
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
 
+            instantiatedBoard.transform.Find("XButton").GetComponent<Button>().onClick.AddListener(deleteBoard);
+
             instantiatedBoard.name = board.Board_Id.ToString();
             instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
                 
@@ -78,11 +87,5 @@ public class GalleryManager : MonoBehaviour
 
             galleryItems.Add(instantiatedBoard);
         }
-    }
-
-    private void Awake()
-    {
-        galleryItems = new List<GameObject>();
-        createGallery();
     }
 }
