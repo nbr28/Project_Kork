@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class GalleryManager : MonoBehaviour
 {
@@ -11,9 +12,8 @@ public class GalleryManager : MonoBehaviour
     public GameObject galleryItemPrefab;
     // Set the button in Editor!!!
     public TMP_InputField createBoardInput;
-    public TMP_InputField deleteBoardInput;
 
-    private List<GameObject> galleryItems = new List<GameObject>();
+    private List<GameObject> galleryItems;
 
     public void createNewBoard()
     {
@@ -33,11 +33,11 @@ public class GalleryManager : MonoBehaviour
         BoardHandler boardHandler = new BoardHandler();
         Board board = new Board();
 
-        board.Board_Name = deleteBoardInput.text;
+        GameObject item = GameObject.Find(EventSystem.current.currentSelectedGameObject.gameObject.transform.parent.name);
+        board.Board_Name = item.GetComponentInChildren<Text>().text;
+      
         boardHandler.Delete(board);
-
-        deleteBoardInput.text = "";
-
+        Destroy(item.gameObject);
         refreshGallery();
     }
 
@@ -67,7 +67,7 @@ public class GalleryManager : MonoBehaviour
         foreach (Board board in boardArr)
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
-          
+
             instantiatedBoard.name = board.Board_Id.ToString();
             instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
                 
@@ -82,6 +82,7 @@ public class GalleryManager : MonoBehaviour
 
     private void Awake()
     {
+        galleryItems = new List<GameObject>();
         createGallery();
     }
 }
