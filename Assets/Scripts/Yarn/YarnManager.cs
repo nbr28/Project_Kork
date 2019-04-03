@@ -18,7 +18,6 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     // List of YarnLine objects, which will be populated with db query results upon iniitlization
     public List<YarnLine> YarnList//self building list of yarn lines
     {
-
         get
         {
             if (yarnList == null)
@@ -214,15 +213,23 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     public void yarnAction()
     {
         if (yarnEditor.Mode == YarnEditor.mode.ADD)
+        {
             saveYarn();
+        }
         else if (yarnEditor.Mode == YarnEditor.mode.DELETE)
+        {
             deleteYarnLine();
-
-            //Remove all yarn line renderers and objects and recreate them
-            foreach (YarnLineRenderer ylr in yarnLineObjectList)
-            {
-                Destroy(ylr.gameObject);
-            }
+        }
+        else if (yarnEditor.Mode == YarnEditor.mode.DELETE_EXIST)
+        {
+            deleteYarnLine();
+        }
+           
+        //Remove all yarn line renderers and objects and recreate them
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
+        {
+            Destroy(ylr.gameObject);
+        }
 
         yarnLineObjectList.Clear();
         init();
