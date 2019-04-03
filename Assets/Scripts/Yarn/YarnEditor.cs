@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class YarnEditor : MonoBehaviour
 {
-    public enum mode { ADD, DELETE, DELETE_EXIST };
-    public ClickManager clickManager;
+    public enum mode { ADD, DELETE};
 
     public mode Mode;
     public bool lockFrom;
@@ -26,18 +25,12 @@ public class YarnEditor : MonoBehaviour
         resetYarnSelection();
     }
 
-    public void enableYarnSelection()
-    {
-        clickManager.setClickMode(1);
-    }
-
     public void disableYarnSelection()
     {
         lockFrom = false;
         lockTo = false;
         lockID = false;
         resetYarnSelection();
-        clickManager.setClickMode(0);
     }
 
     public void setYarnSelection(int from, int to, int id)

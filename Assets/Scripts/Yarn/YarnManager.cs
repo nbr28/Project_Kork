@@ -220,10 +220,9 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         {
             deleteYarnLine();
         }
-        else if (yarnEditor.Mode == YarnEditor.mode.DELETE_EXIST)
-        {
-            deleteYarnLine();
-        }
+
+        //Clear the yarn name field
+        uiManager.yarnNameField.text = "";
            
         //Remove all yarn line renderers and objects and recreate them
         foreach (YarnLineRenderer ylr in yarnLineObjectList)

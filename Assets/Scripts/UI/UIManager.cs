@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     //External Managers
     public SnippetManager snippetManager;
     public YarnManager yarnManager;
+    public ClickManager clickManager;
 
     //General UI
     public TMP_InputField tagSearchField;
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
 
     //Editing Yarn and Tags
     public Button addYarnButton;
+    public Button editYarnLabelsButton;
     public Button removeYarnButton;
     public Button addTagButton;
     public Button removeTagButton;
@@ -99,26 +101,43 @@ public class UIManager : MonoBehaviour
         setDbgYarnToText(yarnManager.yarnEditor.getTo().ToString());
         setDbgYarnTargetText(yarnManager.yarnEditor.getID().ToString());
 
-        if (
-            yarnManager.yarnEditor.getFrom() != -1 &&
-            yarnManager.yarnEditor.getTo() != -1
-            )
+        if (yarnManager.yarnEditor.Mode == YarnEditor.mode.ADD)
         {
-            yarnNameField.gameObject.SetActive(true);
+            if (
+                yarnManager.yarnEditor.getFrom() != -1 &&
+                yarnManager.yarnEditor.getTo() != -1
+                )
+            {
+                yarnNameField.gameObject.SetActive(true);
+            }
+            else
+            {
+                yarnNameField.text = "";
+                yarnNameField.gameObject.SetActive(false);
+            }
+
+            if (yarnNameField.text != "")
+            {
+                saveYarnButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                saveYarnButton.gameObject.SetActive(false);
+            }
         }
-        else
+        else if (yarnManager.yarnEditor.Mode == YarnEditor.mode.DELETE)
         {
             yarnNameField.text = "";
             yarnNameField.gameObject.SetActive(false);
-        }
 
-        if (yarnNameField.text != "")
-        {
-            saveYarnButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            saveYarnButton.gameObject.SetActive(false);
+            if (yarnManager.yarnEditor.getTo() != -1)
+            {
+                saveYarnButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                saveYarnButton.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -232,7 +251,7 @@ public class UIManager : MonoBehaviour
         }
 
         closeSnippetDetails();
-        yarnManager.yarnEditor.enableYarnSelection();
+        enableYarnSelection();
     }
 
     public void removeFromExistingYarn()
@@ -246,7 +265,7 @@ public class UIManager : MonoBehaviour
         }
 
         closeSnippetDetails();
-        yarnManager.yarnEditor.enableYarnSelection();
+        enableYarnSelection();
     }
 
     public void clearSnippetDetails()
@@ -295,6 +314,51 @@ public class UIManager : MonoBehaviour
         closeSnippetDetails();
         snippetManager.deleteSnippet(LastClickedSnippet);
         Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
+    }
+
+    public void enableYarnSelection()
+    {
+        clickManager.setClickMode(1);
+    }
+
+    public void quitYarnSelect()
+    {
+        yarnNameField.text = "";
+        yarnNameField.gameObject.SetActive(false);
+
+        int from = yarnManager.yarnEditor.getFrom();
+        int to = yarnManager.yarnEditor.getTo();
+
+        if (snippetManager.snippetObjectDict.ContainsKey(from))
+        {
+            snippetManager.snippetObjectDict[from].GetComponent<SnippetOutline>().setToggle(false);
+        }
+
+        if (snippetManager.snippetObjectDict.ContainsKey(to))
+        {
+            snippetManager.snippetObjectDict[to].GetComponent<SnippetOutline>().setToggle(false);
+        }
+
+        yarnManager.yarnEditor.disableYarnSelection();
+        clickManager.setClickMode(0);
+    }
+
+    public void applyYarnChanges()
+    {
+        int from = yarnManager.yarnEditor.getFrom();
+        int to = yarnManager.yarnEditor.getTo();
+
+        if (snippetManager.snippetObjectDict.ContainsKey(from))
+        {
+            snippetManager.snippetObjectDict[from].GetComponent<SnippetOutline>().setToggle(false);
+        }
+
+        if (snippetManager.snippetObjectDict.ContainsKey(to))
+        {
+            snippetManager.snippetObjectDict[to].GetComponent<SnippetOutline>().setToggle(false);
+        }
+
+        yarnManager.yarnAction();
     }
 
     public void saveLocalSnippetChanges()
