@@ -264,6 +264,8 @@ public class ClickManager : MonoBehaviour
                             )
                         {
                             uiManager.yarnManager.yarnEditor.setTo(objectHit.GetComponent<SnippetState>().id);
+                            // Open the yarn options panel after selecting second endpoint
+                            uiManager.openContentPanel();
                         }
                         //If we have a from, and a "to", and it's the same snippet, deselect it
                         else if (

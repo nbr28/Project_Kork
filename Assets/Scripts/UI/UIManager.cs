@@ -465,6 +465,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void openContentPanel()
+    {
+        if (!contentTog)
+        {
+            contentPanel.DOAnchorPosX(-7.0f, 0.25f);
+            contentTog = true;
+
+            searchPanel.gameObject.SetActive(false);
+            toggleDNDButton.gameObject.SetActive(false);
+        }
+    }
+
     public void toggleContentPanel()
     {
         if (!contentTog)
