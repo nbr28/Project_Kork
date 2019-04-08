@@ -10,13 +10,6 @@ namespace Assets.Scripts.DataBase
 {
     public class YarnHandler: GenericCRUD<Yarn>
     {
-        [Obsolete]
-        private RequestHelper currentRequest;
-        [Obsolete]
-        private MonoBehaviour mono;
-        [Obsolete]
-        private Yarn[] yarns;
-        [Obsolete]
         private Yarn yarn;
         private const string baseTable = "Yarn";
 
@@ -69,72 +62,6 @@ namespace Assets.Scripts.DataBase
         public override int Delete(string url, ICreateFormData obj)
         {
             return base.Delete(URLConfig.BASEURL + baseTable, obj);
-        }
-
-        /// <summary>
-        /// POST request to create a new yarn
-        /// </summary>
-        /// <param name="yarn">yarn to be posted</param>
-        /// <param name="uri">API url</param>
-        [Obsolete]
-        private IEnumerator _PostYarn(Yarn yarn, string uri = URLConfig.BASEURL + baseTable)
-        {
-            var x = new { Yarn_Id=-1};
-
-            WWWForm form = new WWWForm();
-            form.AddField("Yarn_Name", yarn.Yarn_Name);
-            form.AddField("Yarn_Id", yarn.Yarn_Id);
-            WWW request = new WWW(uri, form);
-            while (!request.isDone) ;
-            Debug.Log(request.text);
-            this.yarn = JsonUtility.FromJson <Yarn>(request.text);
-            yield return request;
-        }
-
-        /// <summary>
-        /// GET request to retrieve all yarns
-        /// </summary>
-        /// <param name="uri">API url</param>
-        [Obsolete]
-        private IEnumerator GetAllYarn(string uri = URLConfig.BASEURL + baseTable + "s")
-        {
-            WWW request = new WWW(uri);
-            while (!request.isDone) ;
-            yarns = JsonHelper.getJsonArray<Yarn>(request.text);
-            yield return request;
-        }
-
-        /// <summary>
-        /// GET request to retrieve yarn by id
-        /// </summary>
-        /// <param name="yarnId">yarn id</param>
-        /// <param name="uri">API url</param>
-        [Obsolete]
-        private IEnumerator GetYarnById(int yarnId, string uri = URLConfig.BASEURL + baseTable)
-        {
-            WWW request = new WWW(uri + "/" + yarnId);
-            while (!request.isDone) ;
-            yarn = JsonUtility.FromJson<Yarn>(request.text);
-            yield return request;
-        }
-
-
-        /// <summary>
-        /// DELETE request to delete yarn by id
-        /// </summary>
-        /// <param name="yarnId">yarn id</param>
-        /// <param name="uri">API url</param>
-        [Obsolete]
-        private IEnumerator DeleteYarnById(int yarnId, string uri = URLConfig.BASEURL + baseTable)
-        {
-            UnityWebRequest request = UnityWebRequest.Delete(uri + "/" + yarnId);
-            yield return request.SendWebRequest();
-
-            //TODO: Error Handling 
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error While Sending: " + request.error);
-            }
         }
     }
 }
