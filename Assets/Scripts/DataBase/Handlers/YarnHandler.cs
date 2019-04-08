@@ -12,6 +12,7 @@ namespace Assets.Scripts.DataBase
     {
         [Obsolete]
         private RequestHelper currentRequest;
+        [Obsolete]
         private MonoBehaviour mono;
         [Obsolete]
         private Yarn[] yarns;
