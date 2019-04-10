@@ -55,6 +55,12 @@ public class SnippetManager : MonoBehaviour
 
     }
 
+    public SnippetState getRefeneceToSnippet(int snippet_Id)
+    {
+        return this.snippetObjectDict[snippet_Id].GetComponent<SnippetState>();
+    }
+
+
     public void showAllSnippets()
     {
         foreach (KeyValuePair<int, GameObject> snippetObject in snippetObjectDict)
