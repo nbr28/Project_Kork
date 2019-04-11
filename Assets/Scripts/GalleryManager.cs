@@ -72,20 +72,14 @@ public class GalleryManager : MonoBehaviour
 
     private void createGallery()
     {
-        int i = 0;
         foreach (Board board in boardArr)
         {
             GameObject instantiatedBoard = Instantiate(galleryItemPrefab) as GameObject;
 
             instantiatedBoard.transform.Find("XButton").GetComponent<Button>().onClick.AddListener(deleteBoard);
-
             instantiatedBoard.name = board.Board_Id.ToString();
             instantiatedBoard.GetComponentInChildren<Text>().text = board.Board_Name;
-                
-            instantiatedBoard.transform.SetParent(GameObject.Find("Canvas").transform);
-            // TODO: make it into a nice grid -> check GridLayout
-            instantiatedBoard.transform.localPosition = new Vector3(-450 + i * 180, 0, 0);
-            i++;
+            instantiatedBoard.transform.SetParent(GameObject.Find("Content").transform);
 
             galleryItems.Add(instantiatedBoard);
         }
