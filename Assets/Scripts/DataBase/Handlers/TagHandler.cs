@@ -12,7 +12,20 @@ namespace Assets.Scripts.DataBase
 {
     public class TagHandler : GenericCRUD<Tag>
     {
+        private RequestHelper currentRequest;
+        private MonoBehaviour mono;
+        private Tag[] tags;
+        private Tag tag;
         private const string baseTable = "tag";
+
+        /// <summary>
+        /// Constructor for TagHandler class.
+        /// </summary>
+        /// <param name="mono">a script with monobehavior that will be attached to this script</param>
+        public TagHandler(MonoBehaviour mono)
+        {
+            this.mono = mono;
+        }
 
 
         /// <summary>
