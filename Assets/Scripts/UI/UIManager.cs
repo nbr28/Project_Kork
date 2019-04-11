@@ -315,10 +315,20 @@ public class UIManager : MonoBehaviour
     {
         closeSnippetDetails();
 
+        List<YarnLine> attachedYarnLines = new List<YarnLine>(_YarnLineHandler.GetRequestYarnsBySnippetId(LastClickedSnippet.id));
+
+        //Remove the yarn lines attached to snippet 
+        foreach (YarnLine yl in attachedYarnLines)
+        {
+            yarnManager.YarnList.Remove(yl);
+        }
+
+        //Redraw all yarnlines
+        yarnManager.redraw();
+
+        //Remove actual snippet itself
         snippetManager.deleteSnippet(LastClickedSnippet);
         Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
-
-        yarnManager.redraw();
     }
 
     public void createNewSnippet()

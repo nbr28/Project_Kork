@@ -61,7 +61,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     {
         for (int i = 0; i < yarnLineObjectList.Count; i++)
         {
-            if (yarnList[i] != null)
+            if (yarnLineObjectList[i] != null)
             {
                 yarnLineObjectList[i].A = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_From].gameObject.transform.position;
                 yarnLineObjectList[i].B = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_To].gameObject.transform.position;
