@@ -186,6 +186,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
+
     /// <summary>
     /// Displays the yarns that a snippet is associated with
     /// </summary>
@@ -268,6 +270,12 @@ public class UIManager : MonoBehaviour
 
         closeSnippetDetails();
         enableYarnSelection();
+    }
+
+    public void removeTagFromSnippet()
+    {
+        snippetManager.getReferenceToSnippet(LastClickedSnippet.id).RemoveTag(snippetTagDropdown.value);
+        loadSnippetDetails(LastClickedSnippet);
     }
 
     public void clearSnippetDetails()

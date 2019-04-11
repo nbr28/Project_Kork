@@ -32,7 +32,7 @@ namespace Assets.Scripts.DataBase
     public static class URLConfig
     {
         public const string BASEURL = "https://porject-kork.herokuapp.com/api/";
-        //public const string BASEURL = "http://localhost:3000/api/";
+       //public const string BASEURL = "http://localhost:3000/api/";
         public static int TempBoardId = 1;
     }
 
@@ -41,6 +41,7 @@ namespace Assets.Scripts.DataBase
     {
         public int Board_Id=-1;
         public string Board_Name;
+
 
         public List<IMultipartFormSection> CreateForm()
         {

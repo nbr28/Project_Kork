@@ -40,7 +40,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
             }
             else
             {
-                assocations.Add(new AssociationState(m_title_AssociationName, DataType.String),value);
+                assocations.Add(new AssociationState(m_title_AssociationName, DataType.String), value);
             }
         }
     }
@@ -64,7 +64,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
         }
     }
 
- 
+
 
     public float x
     {
@@ -168,7 +168,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
         foreach (AssociationView associationView in associationViews)
         {
-            this.assocations.Add(associationView.GetAssociationKeyPair().Key,associationView.GetAssociationKeyPair().Value);
+            this.assocations.Add(associationView.GetAssociationKeyPair().Key, associationView.GetAssociationKeyPair().Value);
         }
 
 
@@ -194,13 +194,36 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     }
 
 
+    public void RemoveTag(int tagNum)
+    {
+        TagHandler handler = new TagHandler();
+        Tag tempTag = new Tag
+        {
+            Snippet_Id = this.id,
+            Tag_Name = this.tags[tagNum]
+        };
+
+        handler.Delete(tempTag);
+        tag.Remove(tagNum);
+        tags.Remove(tempTag.Tag_Name);
+
+        //Refresh tags in tagbar
+        string allTags = "";
+        foreach (string tag in this.tags)
+        {
+            allTags += (" #" + tag);
+        }
+        allTags.Trim();
+        tagBar.GetComponent<TextMeshPro>().SetText(allTags);
+    }
+
     /// <summary>
     /// Saves the entr
     /// </summary>
     public void Save()
     {
         ConnectionHandler connectionHandler = new ConnectionHandler();
-        foreach(KeyValuePair<AssociationState, string> connetion in assocations)
+        foreach (KeyValuePair<AssociationState, string> connetion in assocations)
         {
             connectionHandler.Put(new Connection(this.id, connetion.Key.Association_Id, connetion.Value));
         }

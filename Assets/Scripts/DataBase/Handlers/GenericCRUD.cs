@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 namespace Assets.Scripts.DataBase.Handlers
 {
 
- 
+
     public class GenericCRUD<T>
          where T : ICreateFormData //ISerializable might cause issues
     {
@@ -72,7 +72,16 @@ namespace Assets.Scripts.DataBase.Handlers
             www.SetRequestHeader("Content-Type", "application/json");
             www.SendWebRequest();
             while (!www.isDone) if (www.downloadProgress < threshold) Thread.Sleep(sleepTime);
-            return 1;//TODO: Update api to return number of rows deleted //Int32.Parse(www.downloadHandler.text);
+
+            int outputInt;
+            if (int.TryParse(www.downloadHandler.text, out outputInt))
+                return outputInt;//output the parsed integer
+            else
+            {
+                Debug.Log("Error From Delete API return type was not int:\n" + www.downloadHandler.text);
+                return -1;//output error message
+
+            }
         }
     }
 }
