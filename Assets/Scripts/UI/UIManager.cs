@@ -9,6 +9,7 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
+    // 
     //External Managers
     public SnippetManager snippetManager;
     public YarnManager yarnManager;
@@ -26,6 +27,13 @@ public class UIManager : MonoBehaviour
     public Button toggleSearchButton;
     public Button toggleContentButton;
 
+    //Panel Selections
+    public Button yarnSelectModeButton;
+    public Button quitYarnSelectModeButton;
+    public Button saveYarnButton;
+    public TMP_InputField yarnNameField;
+    public Button newSnippetButton;
+
     //Snippet UI
     public EasyTween dimmerPanel;
     public EasyTween snippetDetailsPanel;
@@ -42,12 +50,6 @@ public class UIManager : MonoBehaviour
     public Button removeYarnButton;
     public Button addTagButton;
     public Button removeTagButton;
-
-    //These are quite temporary (maybe)
-    public Button yarnSelectModeButton;
-    public Button quitYarnSelectModeButton;
-    public Button saveYarnButton;
-    public TMP_InputField yarnNameField;
 
     //Debug UI
     public GameObject dbgPanel;
@@ -314,6 +316,11 @@ public class UIManager : MonoBehaviour
         closeSnippetDetails();
         snippetManager.deleteSnippet(LastClickedSnippet);
         Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
+    }
+
+    public void createNewSnippet()
+    {
+        snippetManager.createBlankSnippet();
     }
 
     public void enableYarnSelection()
