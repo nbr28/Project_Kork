@@ -29,6 +29,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     {
         get
         {
+            Debug.Log(m_title_AssociationName);
             return assocations[new AssociationState(m_title_AssociationName, DataType.String)];
         }
         set
@@ -223,5 +224,34 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
     public Snippet GetBaseInterFace()
     {
         return new Snippet(this.id, this.Path_To_Data);
+    }
+
+    public static Snippet CreateBlankSnippet(int board_id)
+    {
+        SnippetHandler snippetHandler = new SnippetHandler();
+
+        //GUID is a unique code that is a placeholder for now
+        Snippet snippet = snippetHandler.Post(new Snippet(-1, board_id, Guid.NewGuid().ToString()));//get the snippets id
+
+
+        //create all the required fields
+        Connection x = new Connection(snippet.Snippet_Id, 80, 0.ToString());
+        Connection y = new Connection(snippet.Snippet_Id, 81, 0.ToString());
+        Connection z = new Connection(snippet.Snippet_Id, 82, 0.ToString());
+
+        Connection titleBar = new Connection(snippet.Snippet_Id, 83, "#0000ff");
+        Connection content = new Connection(snippet.Snippet_Id, 79, "Fill out text");
+        Connection title = new Connection(snippet.Snippet_Id, 78, "Placeholder Title");
+
+        ConnectionHandler connectionHandler = new ConnectionHandler();
+
+        connectionHandler.Post(x);
+        connectionHandler.Post(y);
+        connectionHandler.Post(z);
+        connectionHandler.Post(titleBar);
+        connectionHandler.Post(content);
+        connectionHandler.Post(title);
+
+        return snippet;
     }
 }

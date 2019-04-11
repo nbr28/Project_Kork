@@ -9,6 +9,7 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
+    // 
     //External Managers
     public SnippetManager snippetManager;
     public YarnManager yarnManager;
@@ -26,6 +27,13 @@ public class UIManager : MonoBehaviour
     public Button toggleSearchButton;
     public Button toggleContentButton;
 
+    //Panel Selections
+    public Button yarnSelectModeButton;
+    public Button quitYarnSelectModeButton;
+    public Button saveYarnButton;
+    public TMP_InputField yarnNameField;
+    public Button newSnippetButton;
+
     //Snippet UI
     public EasyTween dimmerPanel;
     public EasyTween snippetDetailsPanel;
@@ -42,12 +50,6 @@ public class UIManager : MonoBehaviour
     public Button removeYarnButton;
     public Button addTagButton;
     public Button removeTagButton;
-
-    //These are quite temporary (maybe)
-    public Button yarnSelectModeButton;
-    public Button quitYarnSelectModeButton;
-    public Button saveYarnButton;
-    public TMP_InputField yarnNameField;
 
     //Debug UI
     public GameObject dbgPanel;
@@ -312,8 +314,26 @@ public class UIManager : MonoBehaviour
     public void deleteLastClickedSnippet()
     {
         closeSnippetDetails();
+
+        List<YarnLine> attachedYarnLines = new List<YarnLine>(_YarnLineHandler.GetRequestYarnsBySnippetId(LastClickedSnippet.id));
+
+        //Remove the yarn lines attached to snippet 
+        foreach (YarnLine yl in attachedYarnLines)
+        {
+            yarnManager.YarnList.Remove(yl);
+        }
+
+        //Redraw all yarnlines
+        yarnManager.redraw();
+
+        //Remove actual snippet itself
         snippetManager.deleteSnippet(LastClickedSnippet);
         Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
+    }
+
+    public void createNewSnippet()
+    {
+        snippetManager.createBlankSnippet();
     }
 
     public void enableYarnSelection()
@@ -359,6 +379,7 @@ public class UIManager : MonoBehaviour
         }
 
         yarnManager.yarnAction();
+        quitYarnSelect();
     }
 
     public void saveLocalSnippetChanges()

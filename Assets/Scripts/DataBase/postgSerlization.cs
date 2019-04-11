@@ -80,6 +80,13 @@ namespace Assets.Scripts.DataBase
             Board_Id =URLConfig.TempBoardId;
         }
 
+        public Snippet(int snippet_Id, int board_id, string path_To_Data)
+        {
+            Snippet_Id = snippet_Id;
+            Path_To_Data = path_To_Data;
+            Board_Id = board_id;
+        }
+
         [Obsolete]
         public WWWForm CreateForm()
         {

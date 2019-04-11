@@ -174,6 +174,25 @@ public class SnippetManager : MonoBehaviour
         snippetHandler.Delete(target.GetBaseInterFace());
     }
 
+    public void createBlankSnippet()
+    {
+        TagHandler tagHandler = new TagHandler(this);
+        AssocationHandler assocationHandler = new AssocationHandler();
+
+        Snippet blankSnippet = SnippetState.CreateBlankSnippet(1);
+
+        GameObject instantiatedSnippet = Instantiate(snippetPrefab) as GameObject;
+
+        SnippetState instSnippetState = instantiatedSnippet.GetComponent<SnippetState>();
+        instSnippetState.loadState(tagHandler.GetTagBySnippetId(blankSnippet.Snippet_Id),
+                                    blankSnippet,
+                                    assocationHandler.GetAssociationViewForSnippet(blankSnippet.Snippet_Id));
+
+        instantiatedSnippet.name = instSnippetState.title;  //names each snippet by its title
+
+        snippetObjectDict.Add(instSnippetState.id, instantiatedSnippet);
+    }
+
     //DEPRECATED!!
     //Loads JSON data from DB file into application
     //Returns whether or not data was successfully loaded
