@@ -55,7 +55,7 @@ public class SnippetManager : MonoBehaviour
 
     }
 
-    public SnippetState getRefeneceToSnippet(int snippet_Id)
+    public SnippetState getReferenceToSnippet(int snippet_Id)
     {
         return this.snippetObjectDict[snippet_Id].GetComponent<SnippetState>();
     }

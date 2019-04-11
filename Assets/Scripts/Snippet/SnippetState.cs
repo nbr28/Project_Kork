@@ -204,6 +204,16 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
         handler.Delete(tempTag);
         tag.Remove(tagNum);
+        tags.Remove(tempTag.Tag_Name);
+
+        //Refresh tags in tagbar
+        string allTags = "";
+        foreach (string tag in this.tags)
+        {
+            allTags += (" #" + tag);
+        }
+        allTags.Trim();
+        tagBar.GetComponent<TextMeshPro>().SetText(allTags);
     }
 
     /// <summary>

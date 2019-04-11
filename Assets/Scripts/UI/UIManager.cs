@@ -272,7 +272,8 @@ public class UIManager : MonoBehaviour
 
     public void removeTagFromSnippet()
     {
-        snippetManager.getRefeneceToSnippet(LastClickedSnippet.id).RemoveTag(snippetTagDropdown.value);
+        snippetManager.getReferenceToSnippet(LastClickedSnippet.id).RemoveTag(snippetTagDropdown.value);
+        loadSnippetDetails(LastClickedSnippet);
     }
 
     public void clearSnippetDetails()
