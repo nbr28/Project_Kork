@@ -83,8 +83,13 @@ public class SnippetManager : MonoBehaviour
 
     public void filterByTagAndYarn(string tagQuery, int yarnQuery)
     {
+        int yarnQueryID = -1;
         //Get the actual yarnID from the dropdown seletion value
-        int yarnQueryID = yarnManager.allYarnLines.Keys.ElementAt<int>(yarnQuery);
+        if (yarnQuery >= 0)
+        {
+            yarnQueryID = yarnManager.allYarnLines.Keys.ElementAt<int>(yarnQuery);
+        }
+         
 
         //If both filters exist
         if (tagQuery != "" && yarnQueryID >= 0)

@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     public Button quitYarnSelectModeButton;
     public Button saveYarnButton;
     public TMP_InputField yarnNameField;
+    public TMP_Dropdown yarnSelectionDropdownAdd;
     public Button newSnippetButton;
 
     //Snippet UI
@@ -93,6 +94,7 @@ public class UIManager : MonoBehaviour
         disableSnippetEditing();
         snippetEditEnabled = false;
 
+        yarnSelectionDropdownAdd.gameObject.SetActive(false);
         yarnNameField.gameObject.SetActive(false);
         saveYarnButton.gameObject.SetActive(false);
     }
@@ -110,10 +112,12 @@ public class UIManager : MonoBehaviour
                 yarnManager.yarnEditor.getTo() != -1
                 )
             {
+                yarnSelectionDropdownAdd.gameObject.SetActive(true);
                 yarnNameField.gameObject.SetActive(true);
             }
             else
             {
+                yarnSelectionDropdownAdd.gameObject.SetActive(false);
                 yarnNameField.text = "";
                 yarnNameField.gameObject.SetActive(false);
             }
@@ -129,6 +133,7 @@ public class UIManager : MonoBehaviour
         }
         else if (yarnManager.yarnEditor.Mode == YarnEditor.mode.DELETE)
         {
+            yarnSelectionDropdownAdd.gameObject.SetActive(false);
             yarnNameField.text = "";
             yarnNameField.gameObject.SetActive(false);
 
@@ -351,6 +356,7 @@ public class UIManager : MonoBehaviour
 
     public void quitYarnSelect()
     {
+        yarnSelectionDropdownAdd.gameObject.SetActive(false);
         yarnNameField.text = "";
         yarnNameField.gameObject.SetActive(false);
 
@@ -369,6 +375,11 @@ public class UIManager : MonoBehaviour
 
         yarnManager.yarnEditor.disableYarnSelection();
         clickManager.setClickMode(0);
+    }
+
+    public void fillYarnNameFieldFromDropdown()
+    {
+        yarnNameField.text = yarnSelectionDropdownAdd.options[yarnSelectionDropdownAdd.value].text;
     }
 
     public void applyYarnChanges()
@@ -417,7 +428,9 @@ public class UIManager : MonoBehaviour
     public void setYarnSelectionDropDown(List<string> yarnList)
     {
         yarnSelectionDropdown.ClearOptions();
+        yarnSelectionDropdownAdd.ClearOptions();
         yarnSelectionDropdown.AddOptions(yarnList);
+        yarnSelectionDropdownAdd.AddOptions(yarnList);
     }
 
     public void applyFilters()
@@ -432,6 +445,12 @@ public class UIManager : MonoBehaviour
         */
         int yarnQuery = yarnSelectionDropdown.value;
         snippetManager.filterByTagAndYarn(tagQuery, yarnQuery);
+    }
+
+    public void clearYarnFilter()
+    {
+        string tagQuery = tagSearchField.text;
+        snippetManager.filterByTagAndYarn(tagQuery, -1);
     }
 
     public void setDbgLastHitText(string text)
