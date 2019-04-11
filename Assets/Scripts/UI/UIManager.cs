@@ -314,8 +314,11 @@ public class UIManager : MonoBehaviour
     public void deleteLastClickedSnippet()
     {
         closeSnippetDetails();
+
         snippetManager.deleteSnippet(LastClickedSnippet);
         Destroy(snippetManager.snippetObjectDict[LastClickedSnippet.id]);
+
+        yarnManager.redraw();
     }
 
     public void createNewSnippet()
@@ -366,6 +369,7 @@ public class UIManager : MonoBehaviour
         }
 
         yarnManager.yarnAction();
+        quitYarnSelect();
     }
 
     public void saveLocalSnippetChanges()

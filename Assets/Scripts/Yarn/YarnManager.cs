@@ -61,8 +61,12 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
     {
         for (int i = 0; i < yarnLineObjectList.Count; i++)
         {
-            yarnLineObjectList[i].A = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_From].gameObject.transform.position;
-            yarnLineObjectList[i].B = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_To].gameObject.transform.position;
+            if (yarnList[i] != null)
+            {
+                yarnLineObjectList[i].A = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_From].gameObject.transform.position;
+                yarnLineObjectList[i].B = snippetManager.snippetObjectDict[yarnList[i].Snippet_Id_To].gameObject.transform.position;
+            }
+
         }
     }
 
@@ -187,6 +191,19 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         }
     }
 
+    public void redraw()
+    {
+        //Remove all yarn line renderers and objects and recreate them
+        foreach (YarnLineRenderer ylr in yarnLineObjectList)
+        {
+            Destroy(ylr.gameObject);
+        }
+
+        yarnLineObjectList.Clear();
+        init();
+        adaptiveHide();
+    }
+
     // Shows only the yarns associated with the provided ID
     public void filterByID(int query = -1)
     {
@@ -223,16 +240,8 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
 
         //Clear the yarn name field
         uiManager.yarnNameField.text = "";
-           
-        //Remove all yarn line renderers and objects and recreate them
-        foreach (YarnLineRenderer ylr in yarnLineObjectList)
-        {
-            Destroy(ylr.gameObject);
-        }
 
-        yarnLineObjectList.Clear();
-        init();
-        adaptiveHide();
+        redraw();
     }
 
     public void saveYarn()
@@ -257,6 +266,7 @@ public class YarnManager : MonoBehaviour, ISaveLoadInterface
         yarnLineHandler.Post(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
         this.YarnList.Add(new YarnLine(yarnEditor.getTo(), yarnEditor.getFrom(), newYarn.Yarn_Id));
 
+        
     }
 
     public void deleteYarnLine()
