@@ -10,7 +10,7 @@ public class GameBoard : MonoBehaviour
     void Start()
     {
         //assigns a random color
-        gameObject.GetComponent<Image>().color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        // gameObject.GetComponent<Image>().color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         //randomImage();
     }
 
