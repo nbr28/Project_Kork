@@ -32,7 +32,7 @@ public class SnippetManager : MonoBehaviour
     private void createSnippets()
     {
         SnippetHandler snippetHandler = new SnippetHandler();
-        TagHandler tagHandler = new TagHandler();
+        TagHandler tagHandler = new TagHandler(this);
         AssocationHandler assocationHandler = new AssocationHandler();
         Assets.Scripts.DataBase.Snippet[] snippetArr = snippetHandler.GetAllSnippets();
 

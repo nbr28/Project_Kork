@@ -196,7 +196,7 @@ public class SnippetState : MonoBehaviour, ISaveLoadInterface, IBaseConverter<Sn
 
     public void RemoveTag(int tagNum)
     {
-        TagHandler handler = new TagHandler();
+        TagHandler handler = new TagHandler(this);
         Tag tempTag = new Tag
         {
             Snippet_Id = this.id,
